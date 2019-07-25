@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "538149669254",
+    "firebase_url": "https://asset-62c81.firebaseio.com",
+    "project_id": "asset-62c81",
+    "storage_bucket": "asset-62c81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538149669254:android:3420f80c5021f824",
+        "android_client_info": {
+          "package_name": "com.mobileasset"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538149669254-kttcmhhpscgel4olc1umigjg4vccfuuu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA53Gcu1XnjN2YAnir-oYmBV9bLgWufHas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538149669254-kttcmhhpscgel4olc1umigjg4vccfuuu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
