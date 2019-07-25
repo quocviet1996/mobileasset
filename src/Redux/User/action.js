@@ -3,7 +3,8 @@ import {
     SIGN_IN_SUCCESS,
     SIGN_IN_FAILURE
 } from './actionTypes';
-import {api} from '../../Saga/api';
+// import {api} from '../../Saga/api';
+import {SignInRequest} from './api';
 
 const signInRequest =(UserInfo) => {
     return {
@@ -25,10 +26,14 @@ const signInFailure=() =>{
 }
 const signInAction=(UserInfo) =>{
     return (dispatch) =>{
-        dispatch(signInRequest(UserInfo));
-        return api.signInWithEmailAndPassword(UserInfo).then((User) =>{
+        dispatch(signInRequest());
+        return SignInRequest(UserInfo).then((User) =>{
             if (User != null){
-                dispatch(signInSuccess(User.user))
+                dispatch(signInSuccess(User.data.user))
+            }
+            else{
+                dispatch(signInFailure)
+
             }
         })
         .catch((error) =>{

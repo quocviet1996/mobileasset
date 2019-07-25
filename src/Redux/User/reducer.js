@@ -17,7 +17,7 @@ export default (state=initialState,action) =>{
         case SIGN_IN_REQUEST:
             return {
                 ...state,
-                UserInfo:action.UserInfo
+                // UserInfo:action.UserInfo
                    
             };
         case SIGN_IN_SUCCESS:

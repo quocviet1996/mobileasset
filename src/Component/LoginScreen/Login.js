@@ -12,51 +12,39 @@ import {
 } from 'react-native';
 import { Icon } from 'native-base';
 import styles from './Styles';
-import { SignInRequest } from '../../Redux/User/api';
-// import {signInAction} from '../../Redux/action';
+// import { SignInRequest } from '../../Redux/User/api';
+import {signInAction} from '../../Redux/action';
 // import {signInRequest} from '../../Redux/User/action';
 import { connect } from 'react-redux';
-import { GET_USER, SIGN_IN } from '../../ultil/api';
+// import { GET_USER, SIGN_IN } from '../../ultil/api';
 import axios from 'axios';
-export default class Login extends Component {
+
+ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
+            // email: "",
             password: "",
-            userName: "",
-            phone: "",
-            avatar: "",
-            uid: "",
-            a: [],
+            username: "",
+            // phone: "",
+            // avatar: "",
+            // uid: "",
+            // a: [],
         }
     }
     componentDidMount() {
         // axios.get(GET_USER).then((value) => console.log(value.data.data))
-        axios.post(SIGN_IN, {
-            username: "viet",
-            password: "1234"
-        }).then((value) => console.log(value))
-
-        // fetch(SIGN_IN, {
-        //     method: "POST",
-        //     headers: {
-        //         "Accept": "application/json",
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({
-        //         username:"viet",
-        //         password:"1234"
-        //     })
-        // }
-        //     )
-        //     .then((response) => console.log(response.json()))
-        //     .then((responseJson) => console.log(responseJson))
-        //     .catch((error) => console.log("error" + error))
+        // axios.post(SIGN_IN, {
+        //     username: "viet",
+        //     password: "1234"
+        // }).then((value) => console.log(value))
+        // SignInRequest("viet","1234").then((value) => console.log(value.data))
 
     }
     onSignIn() {
-        if (this.state.email != "" && this.state.password != "") {
+        if (this.state.username != "" && this.state.password != "") {
+            this.props.signInAction({username:this.state.username,password:this.state.password})
+            .then(() => console.log(this.props.User))
         }
     }
     render() {
@@ -73,7 +61,7 @@ export default class Login extends Component {
                             padding: 10,
                             margin: 5, color: "#2a1e50", fontSize: 30
                         }}></Icon>
-                        <TextInput style={{ flex: 1 }} value={this.state.userName} onChangeText={(value) => this.setState({ username: value })} placeholder={"input UserName"} >
+                        <TextInput style={{ flex: 1 }} value={this.state.username} onChangeText={(value) => this.setState({ username: value })} placeholder={"input UserName"} >
                         </TextInput>
                     </View>
                     <View style={styles.TextInput}>
@@ -100,10 +88,10 @@ export default class Login extends Component {
     }
     // this.props.signInAction.signInRequest({email:this.state.email,password:this.state.password})
 }
-// function mapStateToProps(state){
-//     return{
-//         User:state.SignInReducer.User
-//     }
-// }
-// export default connect(mapStateToProps,{signInRequest})(Login);
+function mapStateToProps(state){
+    return{
+        User:state.SignInReducer.User
+    }
+}
+export default connect(mapStateToProps,{signInAction})(Login);
 
