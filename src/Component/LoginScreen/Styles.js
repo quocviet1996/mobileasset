@@ -5,8 +5,9 @@ export default StyleSheet.create({
     },
     Body: {
         flex: 1,
+        // justifyContent:'center',
         // backgroundColor: "#008bdc",
-        alignItems: "center"
+        // alignItems: "center"
     },
     logoContainer: {
         flex: 1,
@@ -23,10 +24,11 @@ export default StyleSheet.create({
 
     },
     TextInputContainer: {
-        flex: 1,
+        flex: 0.5,
         alignItems: "center",
         // height: 40,
         borderRadius: 5,
+        justifyContent:"center"
         // margin: 10,
         // backgroundColor: "#fff"
     },
@@ -44,6 +46,8 @@ export default StyleSheet.create({
     btnContainer: {
         flex: 1,
         margin: 10,
+        // justifyContent: "center",
+        alignItems: "center"
         // paddingBottom: 50
     },
     Text: {
@@ -56,9 +60,11 @@ export default StyleSheet.create({
         paddingTop: 5,
         marginBottom: 15
     },
-    // txtSignUp:{
-
-
-    // }
+    header:{
+        flex:0.3,
+        // justifyContent:"center",
+        alignItems:"center",
+        // backgroundColor:"red"
+    }
 
 })

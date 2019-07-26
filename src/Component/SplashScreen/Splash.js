@@ -102,7 +102,7 @@ export default class Splash extends Component {
                 {/* <Animated.View style={{...this.props.style,opacity:this.state.animatedValue}}> */}
                 <Animated.View style={truckStyle}>
 
-                    <Animated.Image source={require("../../img/Logo.png")}>
+                    <Animated.Image source={require("../../img/Batman_Logo.png")}>
 
                     </Animated.Image>
                 </Animated.View>

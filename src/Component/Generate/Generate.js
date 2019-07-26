@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Text, View, Linking, TouchableHighlight, PermissionsAndroid, Platform, StyleSheet} from 'react-native';
 import { CameraKitCameraScreen, } from 'react-native-camera-kit';
-export default class App extends Component {
+export default class Generate extends Component {
   constructor() {
     super();
     this.state = {
@@ -57,7 +57,7 @@ export default class App extends Component {
     if (!this.state.opneScanner) {
       return (
         <View style={styles.container}>
-            <Text style={styles.heading}>React Native QR Code Example</Text>
+            <Text style={styles.heading}>React Native QR Code</Text>
             <Text style={styles.simpleText}>{this.state.qrvalue ? 'Scanned QR Code: '+this.state.qrvalue : ''}</Text>
             {this.state.qrvalue.includes("http") ? 
               <TouchableHighlight
@@ -127,5 +127,3 @@ const styles = StyleSheet.create({
     marginTop: 16
   }
 });
-
-

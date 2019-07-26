@@ -8,52 +8,57 @@ import {
     TextInput,
     Alert,
     ImageBackground,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Dimensions
 } from 'react-native';
 import { Icon } from 'native-base';
 import styles from './Styles';
-// import { SignInRequest } from '../../Redux/User/api';
-import {signInAction} from '../../Redux/action';
-// import {signInRequest} from '../../Redux/User/action';
+import { signInAction } from '../../Redux/action';
 import { connect } from 'react-redux';
-// import { GET_USER, SIGN_IN } from '../../ultil/api';
-import axios from 'axios';
+import { Header } from 'native-base';
 
- class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // email: "",
             password: "",
             username: "",
-            // phone: "",
-            // avatar: "",
-            // uid: "",
-            // a: [],
         }
-    }
-    componentDidMount() {
-        // axios.get(GET_USER).then((value) => console.log(value.data.data))
-        // axios.post(SIGN_IN, {
-        //     username: "viet",
-        //     password: "1234"
-        // }).then((value) => console.log(value))
-        // SignInRequest("viet","1234").then((value) => console.log(value.data))
-
     }
     onSignIn() {
         if (this.state.username != "" && this.state.password != "") {
-            this.props.signInAction({username:this.state.username,password:this.state.password})
-            .then(() => console.log(this.props.User))
+            this.props.signInAction({ username: this.state.username, password: this.state.password })
+                .then(() => {
+                    if (this.props.User) {
+                        this.props.navigation.navigate("ListAsset")
+                    }
+                    else {
+                        Alert.alert(
+                            'Notice',
+                            "Bạn đã đăng nhập thất bại",
+                            [
+                                {
+                                    text: 'OK', onPress: () => { return }
+                                },
+                            ],
+                            { cancelable: false }
+                        )
+
+                    }
+
+                }).catch((error) => {
+                    console.log("error is " + error)
+
+                })
         }
     }
     render() {
         // console.log(this.state.a)
         return (
             <ImageBackground style={styles.Body} source={require("../../img/color-background.jpg")}>
-                <View style={styles.logoContainer}>
-                    <Image source={require("../../img/Logo.png")} style={styles.imgLogo} />
-                    <Text style={{ fontSize: 30, color: "white" }}>Your Asset</Text>
+                <View style={styles.header}>
+                    <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>
+                    </Image>
                 </View>
                 <View style={styles.TextInputContainer}>
                     <View style={styles.TextInput}>
@@ -88,10 +93,10 @@ import axios from 'axios';
     }
     // this.props.signInAction.signInRequest({email:this.state.email,password:this.state.password})
 }
-function mapStateToProps(state){
-    return{
-        User:state.SignInReducer.User
+function mapStateToProps(state) {
+    return {
+        User: state.SignInReducer.User
     }
 }
-export default connect(mapStateToProps,{signInAction})(Login);
+export default connect(mapStateToProps, { signInAction })(Login);
 

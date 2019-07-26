@@ -6,10 +6,10 @@ import {
 // import {api} from '../../Saga/api';
 import {SignInRequest} from './api';
 
-const signInRequest =(UserInfo) => {
+const signInRequest =() => {
     return {
         type: SIGN_IN_REQUEST,
-        UserInfo
+        
     }
 }
 const signInSuccess =(User) =>{
@@ -28,12 +28,12 @@ const signInAction=(UserInfo) =>{
     return (dispatch) =>{
         dispatch(signInRequest());
         return SignInRequest(UserInfo).then((User) =>{
+            // console.log(User.data.user)
             if (User != null){
                 dispatch(signInSuccess(User.data.user))
             }
             else{
                 dispatch(signInFailure)
-
             }
         })
         .catch((error) =>{
