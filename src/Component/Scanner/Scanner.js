@@ -25,6 +25,8 @@ class Generate extends Component {
         //Linking used to open the URL in any browser that you have installed
     }
     onBarcodeScan(qrvalue) {
+        this.props.checkAssetAction({serialNumber:qrvalue,userId:this.props.user[0].id})
+        .then((value) => console.log(this.props.asset))
         //called after te successful scanning of QRCode/Barcode
         this.setState({ qrvalue: qrvalue });
         this.setState({ opneScanner: false });

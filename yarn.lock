@@ -5178,6 +5178,14 @@ react-native-keyboard-aware-scroll-view@0.8.0:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
+react-native-modalbox@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.7.1.tgz#cdb623ecd1cbe8699a450217c25b2d6666dc63e6"
+  integrity sha512-Jqn12MKQaT5OSb1uMAEeDQF02xHS+WWdgKl55ecoIknrDy+FIoC3fXHMEoRZH6agADDg9eVBqx8w+P7+EwXTbQ==
+  dependencies:
+    create-react-class "^15.6.0"
+    prop-types "^15.5.10"
+
 react-native-permissions@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.2.0.tgz#0deb616bf1565c17c91f1cb1f953809b2892c29e"
