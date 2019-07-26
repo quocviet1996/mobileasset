@@ -21,16 +21,16 @@ import React, { Component } from 'react';
 import Navigation from './src/Navigator';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import  configureStore from './src/Redux';
+import configureStore from './src/Redux';
 
 const persistor = persistStore(configureStore)
 export default class App extends Component {
     render() {
         return (
             < Provider store={configureStore} >
-                {/* <PersistGate loading={null} persistor={persistor}>  */}
-                <Navigation></Navigation>
-                {/* </PersistGate> */}
+                <PersistGate loading={null} persistor={persistor}>
+                    <Navigation></Navigation>
+                </PersistGate>
             </Provider >
         )
     }
