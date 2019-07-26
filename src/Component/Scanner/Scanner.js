@@ -59,23 +59,24 @@ class Generate extends Component {
     render() {
         if (!this.state.opneScanner) {
             return (
-                <ImageBackground style={styles.container} source={require("../../img/color-background.jpg")}>
-                    <View style={styles.header}>
-                        <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>
-                        </Image>
-                    </View>
-                    <View style={{flex:1}}>
-                    <Text style={styles.heading}>Scanner Your Asset Here</Text>
-                    <Text style={styles.simpleText}>{this.state.qrvalue ? 'Scanned QR Code: ' + this.state.qrvalue : ''}</Text>
-                    <TouchableOpacity
-                        onPress={() => this.onOpneScanner()}
-                        style={styles.button}>
-                        <Text style={{ color: '#FFFFFF', fontSize: 18 }}>
-                            Open QR Scanner
-                </Text>
-                    </TouchableOpacity>
-                    </View>
-                </ImageBackground>
+                {this.onOpneScanner()}
+                // <ImageBackground style={styles.container} source={require("../../img/color-background.jpg")}>
+                //     <View style={styles.header}>
+                //         <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>
+                //         </Image>
+                //     </View>
+                //     <View style={{flex:1}}>
+                //     <Text style={styles.heading}>Scanner Your Asset Here</Text>
+                //     <Text style={styles.simpleText}>{this.state.qrvalue ? 'Scanned QR Code: ' + this.state.qrvalue : ''}</Text>
+                //     <TouchableOpacity
+                //         onPress={() => this.onOpneScanner()}
+                //         style={styles.button}>
+                //         <Text style={{ color: '#FFFFFF', fontSize: 18 }}>
+                //             Open QR Scanner
+                // </Text>
+                //     </TouchableOpacity>
+                //     </View>
+                // </ImageBackground>
             );
         }
         return (

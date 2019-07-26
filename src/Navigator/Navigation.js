@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createAppContainer, createStackNavigator, createSwitchNavigator, createBottomTabNavigator, NavigationEvents } from 'react-navigation';
+import { createMaterialTopTabNavigator, createStackNavigator, createSwitchNavigator, createBottomTabNavigator, NavigationEvents } from 'react-navigation';
 import Splash from '../Component/SplashScreen';
 import ListAsset from '../Component/AssetScreen';
 import Login from '../Component/LoginScreen';
@@ -44,10 +44,15 @@ const bottom = createBottomTabNavigator({
 },
     {
         swipeEnabled: true,
-        shifting: true,
+        // shifting: true,
+        tabBarPosition: 'bottom',
         initialRouteName: "Scanner",
         tabBarOptions: {
-            activeTintColor: "#e94c49"
+            activeTintColor: "#e94c49",
+            style:{
+                backgroundColor:"#fff"
+
+            }
         }
     })
 const stack1 = createStackNavigator({
