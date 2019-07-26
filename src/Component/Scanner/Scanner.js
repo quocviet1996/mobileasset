@@ -1,11 +1,19 @@
 
 import React, { Component } from 'react';
 import styles from './Styles';
-import { Text, View, Linking, TouchableHighlight, PermissionsAndroid, Platform, StyleSheet } from 'react-native';
+import {
+    Text,
+    View,
+    TouchableOpacity,
+    PermissionsAndroid,
+    Platform,
+    ImageBackground,
+    Image
+} from 'react-native';
 import { CameraKitCameraScreen, } from 'react-native-camera-kit';
-import {checkAssetAction} from '../../Redux/action';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { checkAssetAction } from '../../Redux/action';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 class Generate extends Component {
     constructor() {
         super();
@@ -14,26 +22,14 @@ class Generate extends Component {
             opneScanner: false,
         };
     }
-    componentDidMount(){
-        this.props.checkAssetAction({serialNumber:"7bc218b3-7b29-472b-a11c-7b37ffa2382e",userId:this.props.user[0].id})
-        .then((value) => console.log(this.props.asset))
-
-    }
-    onOpenlink() {
-        //Function to open URL, If scanned 
-        Linking.openURL(this.state.qrvalue);
-        //Linking used to open the URL in any browser that you have installed
-    }
     onBarcodeScan(qrvalue) {
-        this.props.checkAssetAction({serialNumber:qrvalue,userId:this.props.user[0].id})
-        .then((value) => console.log(this.props.asset))
-        //called after te successful scanning of QRCode/Barcode
+        this.props.checkAssetAction({ serialNumber: qrvalue, userId: this.props.user[0].id })
+            .then((value) => console.log(this.props.asset))
         this.setState({ qrvalue: qrvalue });
         this.setState({ opneScanner: false });
     }
     onOpneScanner() {
         var that = this;
-        //To Start Scanning
         if (Platform.OS === 'android') {
             async function requestCameraPermission() {
                 try {
@@ -44,7 +40,6 @@ class Generate extends Component {
                         }
                     )
                     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                        //If CAMERA Permission is granted
                         that.setState({ qrvalue: '' });
                         that.setState({ opneScanner: true });
                     } else {
@@ -55,7 +50,6 @@ class Generate extends Component {
                     console.warn(err);
                 }
             }
-            //Calling the camera permission function
             requestCameraPermission();
         } else {
             that.setState({ qrvalue: '' });
@@ -63,20 +57,25 @@ class Generate extends Component {
         }
     }
     render() {
-        //If qrvalue is set then return this view
         if (!this.state.opneScanner) {
             return (
-                <View style={styles.container}>
-                    <Text style={styles.heading}>React Native QR Code</Text>
+                <ImageBackground style={styles.container} source={require("../../img/color-background.jpg")}>
+                    <View style={styles.header}>
+                        <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>
+                        </Image>
+                    </View>
+                    <View style={{flex:1}}>
+                    <Text style={styles.heading}>Scanner Your Asset Here</Text>
                     <Text style={styles.simpleText}>{this.state.qrvalue ? 'Scanned QR Code: ' + this.state.qrvalue : ''}</Text>
-                    <TouchableHighlight
+                    <TouchableOpacity
                         onPress={() => this.onOpneScanner()}
                         style={styles.button}>
-                        <Text style={{ color: '#FFFFFF', fontSize: 12 }}>
+                        <Text style={{ color: '#FFFFFF', fontSize: 18 }}>
                             Open QR Scanner
                 </Text>
-                    </TouchableHighlight>
-                </View>
+                    </TouchableOpacity>
+                    </View>
+                </ImageBackground>
             );
         }
         return (
@@ -100,15 +99,15 @@ class Generate extends Component {
         );
     }
 }
-function mapStateToProps(state){
-    return{
-        asset:state.checkAssetReducer.asset,
-        user:state.SignInReducer.User
+function mapStateToProps(state) {
+    return {
+        asset: state.checkAssetReducer.asset,
+        user: state.SignInReducer.User
     }
 }
-function dispatchToProps(dispatch){
+function dispatchToProps(dispatch) {
     return bindActionCreators({
         checkAssetAction
-    },dispatch)
+    }, dispatch)
 }
-export default connect(mapStateToProps,dispatchToProps)(Generate);
+export default connect(mapStateToProps, dispatchToProps)(Generate);

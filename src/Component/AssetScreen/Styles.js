@@ -4,10 +4,26 @@ import {
 const { width } = Dimensions.get('window');
 export default StyleSheet.create({
     wrapper: { flex: 1, backgroundColor: '#fff' },
-    header: { flex: 1, backgroundColor: '#2ABB9C', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: 10 },// eslint-disable-line
-    headerTitle: { fontFamily: 'Avenir', color: '#fff', fontSize: 20 },
-    backIconStyle: { width: 30, height: 30 },
-    body: { flex: 10, backgroundColor: '#F6F6F6' },
+    header: {
+        flex: 1,
+        backgroundColor: '#2ABB9C',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 10
+    },// eslint-disable-line
+    headerTitle: {
+        fontFamily: 'Avenir',
+        color: '#fff',
+        fontSize: 20
+    },
+    backIconStyle: {
+        width: 30,
+        height: 30
+    },
+    body: {
+        flex: 10,
+        backgroundColor: '#F6F6F6'
+    },
     orderRow: {
         height: width / 3,
         backgroundColor: '#FFF',

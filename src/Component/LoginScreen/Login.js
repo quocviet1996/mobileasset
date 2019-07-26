@@ -43,9 +43,7 @@ class Login extends Component {
                             ],
                             { cancelable: false }
                         )
-
                     }
-
                 }).catch((error) => {
                     console.log("error is " + error)
 
@@ -53,9 +51,8 @@ class Login extends Component {
         }
     }
     render() {
-        // console.log(this.state.a)
         return (
-            <ImageBackground style={styles.Body} source={require("../../img/color-background.jpg")}>
+            <ImageBackground style={styles.container} source={require("../../img/color-background.jpg")}>
                 <View style={styles.header}>
                     <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>
                     </Image>
@@ -82,16 +79,11 @@ class Login extends Component {
                     <TouchableOpacity onPress={() => this.onSignIn()}>
                         <Text style={styles.Text}>Sign In</Text>
                     </TouchableOpacity>
-                    {/* <TouchableOpacity   onPress={() => this.onSignUp()}>
-                    <Text style={{...styles.Text,backgroundColor:"#e41e26"}}>Sign Up</Text>
-                </TouchableOpacity> */}
                 </View>
-
             </ImageBackground>
 
         );
     }
-    // this.props.signInAction.signInRequest({email:this.state.email,password:this.state.password})
 }
 function mapStateToProps(state) {
     return {

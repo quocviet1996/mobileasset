@@ -29,7 +29,7 @@ class Splash extends Component {
         }).start();
         setTimeout(() => {
             if (this.props.user) {
-                return this.props.navigation.navigate("ListAsset")
+                return this.props.navigation.navigate("Scanner")
             }
             else {
                 return this.props.navigation.navigate("Login")

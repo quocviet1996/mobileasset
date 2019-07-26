@@ -41,9 +41,9 @@ class Asset extends Component {
         return (
             <View style={styles.wrapper}>
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Login")}>
+                    {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("Login")}>
                         <Icon type="FontAwesome" name="arrow-left" style={{ fontSize: 20, color: "black" }}></Icon>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <Text style={styles.headerTitle}>{"Tài Sản Của " + this.props.user[0].name}</Text>
                     <View />
                 </View>

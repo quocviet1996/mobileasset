@@ -3,12 +3,6 @@ export default StyleSheet.create({
     container: {
         flex: 1
     },
-    Body: {
-        flex: 1,
-        // justifyContent:'center',
-        // backgroundColor: "#008bdc",
-        // alignItems: "center"
-    },
     logoContainer: {
         flex: 1,
         justifyContent: "center",
@@ -26,14 +20,10 @@ export default StyleSheet.create({
     TextInputContainer: {
         flex: 0.5,
         alignItems: "center",
-        // height: 40,
         borderRadius: 5,
-        justifyContent:"center"
-        // margin: 10,
-        // backgroundColor: "#fff"
+        justifyContent: "center"
     },
     TextInput: {
-        // margin: 10,
         flexDirection: "row", justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
@@ -45,10 +35,8 @@ export default StyleSheet.create({
     },
     btnContainer: {
         flex: 1,
-        margin: 10,
-        // justifyContent: "center",
+        margin: 20,
         alignItems: "center"
-        // paddingBottom: 50
     },
     Text: {
         height: 40,
@@ -60,11 +48,8 @@ export default StyleSheet.create({
         paddingTop: 5,
         marginBottom: 15
     },
-    header:{
-        flex:0.3,
-        // justifyContent:"center",
-        alignItems:"center",
-        // backgroundColor:"red"
+    header: {
+        flex: 0.3,
+        alignItems: "center",
     }
-
 })

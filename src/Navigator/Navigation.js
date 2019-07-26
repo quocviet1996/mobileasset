@@ -10,21 +10,6 @@ import {
 } from 'react-native';
 import { Icon } from 'native-base';
 const bottom = createBottomTabNavigator({
-    ListAsset: {
-        screen: ListAsset,
-        navigationOptions: {
-            tabBarLabel: ({ tintColor }) =>
-                <View style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                    <Text style={{ fontSize: 10, color: tintColor }}>List Asset</Text>
-                </View>,
-            tabBarIcon: ({ tintColor }) =>
-                <Icon type="FontAwesome" style={{ fontSize: 24, color: tintColor }} name="list-alt">
-                </Icon>
-        },
-    },
     Scanner: {
         screen: Scanner,
         navigationOptions: {
@@ -40,8 +25,27 @@ const bottom = createBottomTabNavigator({
                 </Icon>
         }
     },
+    ListAsset: {
+        screen: ListAsset,
+        navigationOptions: {
+            tabBarLabel: ({ tintColor }) =>
+                <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <Text style={{ fontSize: 10, color: tintColor }}>List Asset</Text>
+                </View>,
+            tabBarIcon: ({ tintColor }) =>
+                <Icon type="FontAwesome" style={{ fontSize: 24, color: tintColor }} name="list-alt">
+                </Icon>
+        },
+    },
+
 },
     {
+        swipeEnabled: true,
+        shifting: true,
+        initialRouteName: "Scanner",
         tabBarOptions: {
             activeTintColor: "#e94c49"
         }

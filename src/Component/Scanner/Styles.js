@@ -11,6 +11,7 @@ export default StyleSheet.create({
         backgroundColor: '#2c3539',
         padding: 10,
         width: 300,
+        // height:30,
         marginTop: 16
     },
     heading: {
@@ -26,5 +27,9 @@ export default StyleSheet.create({
         alignSelf: 'center',
         padding: 10,
         marginTop: 16
+    },
+    header: {
+        flex: 0.3,
+        alignItems: "center",
     }
 });
