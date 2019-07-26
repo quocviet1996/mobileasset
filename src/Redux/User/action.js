@@ -28,7 +28,6 @@ const signInAction=(UserInfo) =>{
     return (dispatch) =>{
         dispatch(signInRequest());
         return SignInRequest(UserInfo).then((User) =>{
-            // console.log(User.data.user)
             if (User != null){
                 dispatch(signInSuccess(User.data.user))
             }

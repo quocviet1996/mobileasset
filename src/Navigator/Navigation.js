@@ -3,7 +3,7 @@ import { createAppContainer, createStackNavigator, createSwitchNavigator, create
 import Splash from '../Component/SplashScreen';
 import ListAsset from '../Component/AssetScreen';
 import Login from '../Component/LoginScreen';
-import Generate from '../Component/Generate';
+import Scanner from '../Component/Scanner';
 import {
     View,
     Text,
@@ -25,15 +25,15 @@ const bottom = createBottomTabNavigator({
                 </Icon>
         },
     },
-    Generate: {
-        screen: Generate,
+    Scanner: {
+        screen: Scanner,
         navigationOptions: {
             tabBarLabel: ({ tintColor }) =>
                 <View style={{
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <Text style={{ fontSize: 10, color: tintColor }}>Generate</Text>
+                    <Text style={{ fontSize: 10, color: tintColor }}>Scanner</Text>
                 </View>,
             tabBarIcon: ({ tintColor }) =>
                 <Icon type="FontAwesome" style={{ fontSize: 24, color: tintColor }} name="qrcode">
@@ -43,7 +43,7 @@ const bottom = createBottomTabNavigator({
 },
     {
         tabBarOptions: {
-            activeTintColor:"#e94c49"
+            activeTintColor: "#e94c49"
         }
     })
 const stack1 = createStackNavigator({

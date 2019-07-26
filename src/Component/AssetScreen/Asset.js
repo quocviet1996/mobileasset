@@ -24,7 +24,6 @@ class Asset extends Component {
         this.state = { arrOrder: [] };
     }
     componentDidMount() {
-        // console.log(this.props.user[0].id)
         this.props.assetAction(this.props.user[0].id);
     }
 
