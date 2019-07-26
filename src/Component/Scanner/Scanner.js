@@ -59,7 +59,10 @@ class Generate extends Component {
     render() {
         if (!this.state.opneScanner) {
             return (
-                {this.onOpneScanner()}
+                <View style={{ flex: 1 }}>
+                    {this.onOpneScanner()}
+
+                </View>
                 // <ImageBackground style={styles.container} source={require("../../img/color-background.jpg")}>
                 //     <View style={styles.header}>
                 //         <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>

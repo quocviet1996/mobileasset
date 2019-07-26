@@ -10,21 +10,6 @@ import {
 } from 'react-native';
 import { Icon } from 'native-base';
 const bottom = createBottomTabNavigator({
-    Scanner: {
-        screen: Scanner,
-        navigationOptions: {
-            tabBarLabel: ({ tintColor }) =>
-                <View style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                    <Text style={{ fontSize: 10, color: tintColor }}>Scanner</Text>
-                </View>,
-            tabBarIcon: ({ tintColor }) =>
-                <Icon type="FontAwesome" style={{ fontSize: 24, color: tintColor }} name="qrcode">
-                </Icon>
-        }
-    },
     ListAsset: {
         screen: ListAsset,
         navigationOptions: {
@@ -40,6 +25,22 @@ const bottom = createBottomTabNavigator({
                 </Icon>
         },
     },
+    Scanner: {
+        screen: Scanner,
+        navigationOptions: {
+            tabBarLabel: ({ tintColor }) =>
+                <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <Text style={{ fontSize: 10, color: tintColor }}>Scanner</Text>
+                </View>,
+            tabBarIcon: ({ tintColor }) =>
+                <Icon type="FontAwesome" style={{ fontSize: 24, color: tintColor }} name="qrcode">
+                </Icon>
+        }
+    },
+
 
 },
     {
@@ -49,8 +50,8 @@ const bottom = createBottomTabNavigator({
         initialRouteName: "Scanner",
         tabBarOptions: {
             activeTintColor: "#e94c49",
-            style:{
-                backgroundColor:"#fff"
+            style: {
+                backgroundColor: "#fff"
 
             }
         }
