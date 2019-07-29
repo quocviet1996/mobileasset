@@ -13,10 +13,12 @@ export function SignInRequest(UserInfo) {
     }
 
 }
-export function getAssetWithUserId(userId) {
+export function getAssetWithUserId(asset) {
     try {
         const response = axios.post(GET_ASSET_ID, {
-            userId
+            userId:asset.userId,
+            pageIndex:asset.pageIndex,
+            pageSize:asset.pageSize
         })
         return response;
     }

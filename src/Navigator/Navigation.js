@@ -41,7 +41,6 @@ const bottom = createBottomTabNavigator({
         }
     },
 
-
 },
     {
         swipeEnabled: true,

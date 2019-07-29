@@ -13,12 +13,17 @@ import {
 } from 'react-native';
 import styles from './Styles';
 import { connect } from 'react-redux';
-
+import backgroundImage from 'images/splash_screen.jpg';
+import logo from 'images/logoFWD.png';
+import logoReact from 'images/reactjs.png'
 class Splash extends Component {
     constructor(props) {
         super(props);
+        // this.spinValue = new Animated.Value(0)
+
         this.state = {
-            animatedValue: new Animated.Value(0.3)
+            animatedValue: new Animated.Value(0.3),
+            spinValue: new Animated.Value(0)
         }
     }
     componentDidMount() {
@@ -29,26 +34,41 @@ class Splash extends Component {
         }).start();
         setTimeout(() => {
             if (this.props.user) {
-                return this.props.navigation.navigate("Scanner")
+                return this.props.navigation.navigate("ListAsset")
             }
             else {
                 return this.props.navigation.navigate("Login")
             }
         }, 2000)
     }
+    spin() {
+        this.state.spinValue
+        Animated.timing(
+            this.state.spinValue,
+            {
+                toValue: 1,
+                duration: 4000,
+                easing: Easing.linear
+            }
+        ).start(() => this.spin())
+    }
     render() {
+        const spin = this.state.spinValue.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg', '360deg']
+          })
         const truckStyle = {
-            transform: [{ scale: this.state.animatedValue }]
+            transform: [{ scale: this.state.animatedValue }],
         };
         return (
-            <ImageBackground style={styles.containerSplash} source={require("../../img/color-background.jpg")}>
+            <ImageBackground style={styles.containerSplash} source={backgroundImage}>
                 {/* <Animated.View style={{...this.props.style,opacity:this.state.animatedValue}}> */}
-                <Animated.View style={truckStyle}>
-
-                    <Animated.Image source={require("../../img/Batman_Logo.png")}>
-
-                    </Animated.Image>
-                </Animated.View>
+                <View>
+                    <Animated.View style={truckStyle}>
+                        {/* <Animated.Image  source={logoReact} >
+                        </Animated.Image> */}
+                    </Animated.View>
+                </View>
             </ImageBackground>
 
         );

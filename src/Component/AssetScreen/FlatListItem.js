@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component ,PureComponent} from 'react';
 import {
     View,
     Text,
@@ -7,7 +7,9 @@ import {
     Dimensions,
 } from 'react-native';
 import styles from './Styles';
-export default class FlatListItem extends Component {
+import moment from 'moment';
+
+export default class FlatListItem extends PureComponent {
     render() {
         const { item } = this.props;
         return (
@@ -22,11 +24,11 @@ export default class FlatListItem extends Component {
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={styles.textName}>CreateAt:</Text>
-                    <Text style={{ ...this.state, color: '#C21C70' }}>{item.createdAt}</Text>
+                    <Text style={{ ...this.state, color: '#C21C70' }}>{moment(item.createdAt).format("DD-MM-YYYY : h:mm:ss a")}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={styles.textName}>UpdateAt:</Text>
-                    <Text style={styles.textvalue}>{item.updatedAt}</Text>
+                    <Text style={styles.textvalue}>{moment(item.createdAt).format("DD-MM-YYYY : h:mm:ss a")}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={styles.textName}>Quantity:</Text>

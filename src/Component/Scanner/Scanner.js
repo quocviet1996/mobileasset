@@ -8,28 +8,27 @@ import {
     PermissionsAndroid,
     Platform,
     ImageBackground,
-    Image
+    Image,
+    TouchableHighlight,
+    Alert
 } from 'react-native';
-import { CameraKitCameraScreen, } from 'react-native-camera-kit';
+import { CameraKitCameraScreen, CameraKitCamera } from 'react-native-camera-kit';
 import { checkAssetAction } from '../../Redux/action';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import backgroundImage from 'images/Scan_background.jpg';
+import CheckModal from '../Modal/CheckModal';
+
 class Generate extends Component {
     constructor() {
         super();
         this.state = {
             qrvalue: '',
             opneScanner: false,
+            showModalCheck: false,
         };
     }
-    onBarcodeScan(qrvalue) {
-        this.props.checkAssetAction({ serialNumber: qrvalue, userId: this.props.user[0].id })
-            .then((value) => console.log(this.props.asset))
-        this.setState({ qrvalue: qrvalue });
-        this.setState({ opneScanner: false });
-    }
-    onOpneScanner() {
-        var that = this;
+    componentDidMount() {
         if (Platform.OS === 'android') {
             async function requestCameraPermission() {
                 try {
@@ -40,8 +39,8 @@ class Generate extends Component {
                         }
                     )
                     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                        that.setState({ qrvalue: '' });
-                        that.setState({ opneScanner: true });
+                        this.setState({ qrvalue: '' });
+                        this.setState({ opneScanner: true });
                     } else {
                         alert("CAMERA permission denied");
                     }
@@ -52,36 +51,39 @@ class Generate extends Component {
             }
             requestCameraPermission();
         } else {
-            that.setState({ qrvalue: '' });
-            that.setState({ opneScanner: true });
+            this.setState({ qrvalue: '' });
+            this.setState({ opneScanner: true });
         }
+
+    }
+    onBarcodeScan(qrvalue) {
+        this.props.checkAssetAction({ serialNumber: qrvalue, userId: this.props.user[0].id })
+            .then((value) => this.refs.checkmodal.showAddModal())
+        this.setState({ qrvalue: qrvalue, showModalCheck: true });
+        // this.refs.checkmodal.showAddModal();
     }
     render() {
-        if (!this.state.opneScanner) {
-            return (
-                <View style={{ flex: 1 }}>
-                    {this.onOpneScanner()}
-
-                </View>
-                // <ImageBackground style={styles.container} source={require("../../img/color-background.jpg")}>
-                //     <View style={styles.header}>
-                //         <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>
-                //         </Image>
-                //     </View>
-                //     <View style={{flex:1}}>
-                //     <Text style={styles.heading}>Scanner Your Asset Here</Text>
-                //     <Text style={styles.simpleText}>{this.state.qrvalue ? 'Scanned QR Code: ' + this.state.qrvalue : ''}</Text>
-                //     <TouchableOpacity
-                //         onPress={() => this.onOpneScanner()}
-                //         style={styles.button}>
-                //         <Text style={{ color: '#FFFFFF', fontSize: 18 }}>
-                //             Open QR Scanner
-                // </Text>
-                //     </TouchableOpacity>
-                //     </View>
-                // </ImageBackground>
-            );
-        }
+        const checkModal = this.state.showModalCheck ?
+            <View style={styles.container}>
+                <CheckModal ref={'checkmodal'} parent={this}></CheckModal>
+            </View> : <View style={{ flex: 1 }}>
+                <CameraKitCameraScreen
+                    showFrame={false}
+                    //Show/hide scan frame
+                    scanBarcode={true}
+                    //Can restrict for the QR Code only
+                    laserColor={'blue'}
+                    //Color can be of your choice
+                    frameColor={'black'}
+                    //If frame is visible then frame color
+                    colorForScannerFrame={'black'}
+                    //Scanner Frame color
+                    onReadCode={event =>
+                        this.onBarcodeScan(event.nativeEvent.codeStringValue)
+                    }
+                />
+                <CheckModal ref={'checkmodal'} parent={this}></CheckModal>
+            </View>
         return (
             <View style={{ flex: 1 }}>
                 <CameraKitCameraScreen
@@ -91,7 +93,7 @@ class Generate extends Component {
                     //Can restrict for the QR Code only
                     laserColor={'blue'}
                     //Color can be of your choice
-                    frameColor={'yellow'}
+                    frameColor={'black'}
                     //If frame is visible then frame color
                     colorForScannerFrame={'black'}
                     //Scanner Frame color
@@ -99,10 +101,79 @@ class Generate extends Component {
                         this.onBarcodeScan(event.nativeEvent.codeStringValue)
                     }
                 />
+                <CheckModal ref={'checkmodal'} parent={this}></CheckModal>
             </View>
         );
+
+
     }
 }
+// import React, { Component } from 'react';
+// import { checkAssetAction } from '../../Redux/action';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+
+// import {
+//     AppRegistry,
+//     StyleSheet,
+//     Text,
+//     TouchableOpacity,
+//     Linking,
+//     Alert,
+//     View
+// } from 'react-native';
+
+// import QRCodeScanner from 'react-native-qrcode-scanner';
+
+// export default class ScanScreen extends Component {
+//     onSuccess = (e) => {
+//         Linking
+//             .openURL(e.data)
+//             .catch(err => console.error('An error occured', err));
+//     }
+
+
+//     renderCamera() {
+//         const isFocused = this.props.navigation.isFocused();
+
+//         if (!isFocused) {
+//             return null;
+//         } else if (isFocused) {
+//             return (
+//                 <QRCodeScanner showMarker={true}
+//                     onRead={(value) => Alert.alert(value.nativeEvent.codeStringValue)} />
+//             )
+//         }
+//     }
+//     render() {
+//         return (
+//             <View style={{ flex: 1 }}>
+//                 {this.renderCamera()}
+//             </View>
+//         );
+//     }
+// }
+
+// const styles = StyleSheet.create({
+//     centerText: {
+//         flex: 1,
+//         fontSize: 18,
+//         padding: 32,
+//         color: '#777',
+//     },
+//     textBold: {
+//         fontWeight: '500',
+//         color: '#000',
+//     },
+//     buttonText: {
+//         fontSize: 21,
+//         color: 'rgb(0,122,255)',
+//     },
+//     buttonTouchable: {
+//         padding: 16,
+//     },
+// });
+
 function mapStateToProps(state) {
     return {
         asset: state.checkAssetReducer.asset,

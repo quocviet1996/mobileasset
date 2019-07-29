@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 const { width } = Dimensions.get('window');
 export default StyleSheet.create({
-    wrapper: { flex: 1, backgroundColor: '#fff' },
+    wrapper: { flex: 1 },
     header: {
         flex: 1,
         backgroundColor: '#2ABB9C',

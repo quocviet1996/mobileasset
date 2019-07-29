@@ -16,6 +16,7 @@ import styles from './Styles';
 import { signInAction } from '../../Redux/action';
 import { connect } from 'react-redux';
 import { Header } from 'native-base';
+import backgroundImage from 'images/Login_eCheck.jpg'
 
 class Login extends Component {
     constructor(props) {
@@ -52,11 +53,12 @@ class Login extends Component {
     }
     render() {
         return (
-            <ImageBackground style={styles.container} source={require("../../img/color-background.jpg")}>
-                <View style={styles.header}>
+            <ImageBackground style={styles.container} source={backgroundImage}>
+                {/* <View style={styles.header}>
                     <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>
                     </Image>
-                </View>
+                </View> */}
+                <View style={{flex:1}}/>
                 <View style={styles.TextInputContainer}>
                     <View style={styles.TextInput}>
                         <Icon type="FontAwesome" name="user" style={{

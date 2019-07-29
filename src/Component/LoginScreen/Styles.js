@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        justifyContent:"space-between"
     },
     logoContainer: {
         flex: 1,
@@ -18,10 +19,13 @@ export default StyleSheet.create({
 
     },
     TextInputContainer: {
-        flex: 0.5,
+        flex: 1,
         alignItems: "center",
         borderRadius: 5,
-        justifyContent: "center"
+        // marginTop:50,
+        justifyContent: "center",
+        paddingHorizontal:20,
+        // backgroundColor:"red",
     },
     TextInput: {
         flexDirection: "row", justifyContent: 'center',
@@ -34,9 +38,10 @@ export default StyleSheet.create({
         margin: 10,
     },
     btnContainer: {
-        flex: 1,
+        flex: 0.6,
         margin: 20,
-        alignItems: "center"
+        alignItems: "center",
+        // backgroundColor:"red"
     },
     Text: {
         height: 40,

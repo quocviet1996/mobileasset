@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
 import {
-    View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, FlatList
+    View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, FlatList,
+    RefreshControl,
 } from 'react-native';
 import backSpecial from '../../img/forward.png';
 import { connect } from 'react-redux';
@@ -13,6 +14,9 @@ import { Icon } from 'native-base';
 import { black } from 'ansi-colors';
 import styles from './Styles';
 const { width } = Dimensions.get('window');
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+}
 
 class Asset extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -21,19 +25,46 @@ class Asset extends Component {
     };
     constructor(props) {
         super(props);
-        this.state = { arrOrder: [] };
+        this.state = {
+            refresh: false,
+            pageIndex: 1,
+            pageSize: 3,
+            asset:[]
+        };
     }
     componentDidMount() {
-        this.props.assetAction(this.props.user[0].id);
+        this.props.assetAction({ userId: this.props.user[0].id, pageIndex: this.state.pageIndex, pageSize: this.state.pageSize })
+        .then(() => {
+            this.setState({asset:this.props.asset})
+        })
+    }
+    onRefresh() {
+        try {
+            const page = this.state.pageIndex + 1;
+            this.setState({ refresh: true })
+            this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
+            .then(() =>{
+                this.setState({asset:this.props.asset.concat(this.state.asset),pageIndex:this.state.pageIndex + 1,refresh:false})
+            })
+        }
+        catch{
+            this.setState({ refresh: false })
+        }
+
     }
 
     onFlatList(asset) {
-        // console.log(asset)
         if (asset.length > 0) {
             return <FlatList
                 data={asset}
                 renderItem={({ item }) => { return <FlatListItem item={item} parent={this} /> }}
                 keyExtractor={(item) => item.id.toString()}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={this.state.refresh}
+                        onRefresh={() => this.onRefresh()}
+                    />
+                }
             />
         }
     }
@@ -44,11 +75,11 @@ class Asset extends Component {
                     {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("Login")}>
                         <Icon type="FontAwesome" name="arrow-left" style={{ fontSize: 20, color: "black" }}></Icon>
                     </TouchableOpacity> */}
-                    <Text style={styles.headerTitle}>{"Tài Sản Của " + this.props.user[0].name}</Text>
+                    <Text style={styles.headerTitle}>{"Tài Sản Của " + toTitleCase(this.props.user[0].name)}</Text>
                     <View />
                 </View>
                 <View style={styles.body}>
-                    {this.onFlatList(this.props.asset)}
+                    {this.onFlatList(this.state.asset)}
                 </View>
             </View>
         );

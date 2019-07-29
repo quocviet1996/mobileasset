@@ -21,10 +21,10 @@ const assetFailured = () => {
         type: ASSET_FAILURED
     }
 }
-const assetAction = (userId) => {
+const assetAction = (asset) => {
     return (dispatch) => {
         dispatch(assetRequest);
-        return getAssetWithUserId(userId)
+        return getAssetWithUserId(asset)
             .then((asset) => {
                 if (asset.data.asset) {
                     dispatch(assetSuccess(asset.data.asset))
