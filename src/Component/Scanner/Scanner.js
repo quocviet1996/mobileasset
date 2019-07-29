@@ -58,9 +58,8 @@ class Generate extends Component {
     }
     onBarcodeScan(qrvalue) {
         this.props.checkAssetAction({ serialNumber: qrvalue, userId: this.props.user[0].id })
-            .then((value) => this.refs.checkmodal.showAddModal())
+            .then((value) => this.refs.checkmodal.showAddModal(this.props.asset))
         this.setState({ qrvalue: qrvalue, showModalCheck: true });
-        // this.refs.checkmodal.showAddModal();
     }
     render() {
         const checkModal = this.state.showModalCheck ?
@@ -85,24 +84,25 @@ class Generate extends Component {
                 <CheckModal ref={'checkmodal'} parent={this}></CheckModal>
             </View>
         return (
-            <View style={{ flex: 1 }}>
-                <CameraKitCameraScreen
-                    showFrame={false}
-                    //Show/hide scan frame
-                    scanBarcode={true}
-                    //Can restrict for the QR Code only
-                    laserColor={'blue'}
-                    //Color can be of your choice
-                    frameColor={'black'}
-                    //If frame is visible then frame color
-                    colorForScannerFrame={'black'}
-                    //Scanner Frame color
-                    onReadCode={event =>
-                        this.onBarcodeScan(event.nativeEvent.codeStringValue)
-                    }
-                />
-                <CheckModal ref={'checkmodal'} parent={this}></CheckModal>
-            </View>
+            {checkModal}
+            // <View style={{ flex: 1 }}>
+            //     <CameraKitCameraScreen
+            //         showFrame={false}
+            //         //Show/hide scan frame
+            //         scanBarcode={true}
+            //         //Can restrict for the QR Code only
+            //         laserColor={'blue'}
+            //         //Color can be of your choice
+            //         frameColor={'black'}
+            //         //If frame is visible then frame color
+            //         colorForScannerFrame={'black'}
+            //         //Scanner Frame color
+            //         onReadCode={event =>
+            //             this.onBarcodeScan(event.nativeEvent.codeStringValue)
+            //         }
+            //     />
+            //     <CheckModal ref={'checkmodal'} parent={this}></CheckModal>
+            // </View>
         );
 
 
