@@ -25,6 +25,7 @@ export default class CheckModal extends Component {
         }
     }
     showAddModal = (asset) => {
+        // console.log(asset)
         this.setState(asset);
         this.refs.modal.open();
     }
@@ -37,14 +38,14 @@ export default class CheckModal extends Component {
                 backdrop={true}
                 ref={"modal"}
                 backdropPressToClose={false}
-                style={{ justifyContent: 'center', height: 350, backgroundColor: 'black', borderRadius: 30 }}
+                style={{ justifyContent: 'center', height: 300, backgroundColor: '#fff', borderRadius: 30 }}
             >
-                <View style={styles.orderRow}>
+                 <View style={styles.orderRow}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>Asset Id:</Text>
-                        <Text style={styles.textvalue}>ASS{this.state.asset.id}</Text>
+                        <Text style={styles.textvalue}>ASS{this.props.asset.id}</Text>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>Name:</Text>
                         <Text style={styles.textvalue}>{this.state.asset.name}</Text>
                     </View>
@@ -59,10 +60,12 @@ export default class CheckModal extends Component {
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>Quantity:</Text>
                         <Text style={{ ...this.state, color: '#C21C70' }}>{this.state.asset.quantity}</Text>
-                    </View>
-                </View>
-                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                    </View> */}
+                </View> 
+                <View style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }}>
+                    <TouchableOpacity onPress={() => this.refs.modal.disabled()}>
                     <Icon type={"FontAwesome"} name="check" style={{ fontSize: 40, color: "#4ac51d" }}></Icon>
+                    </TouchableOpacity>
 
                 </View>
             </Modal>

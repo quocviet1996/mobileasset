@@ -24,7 +24,7 @@ const checkAssetFailured = () => {
 const checkAssetAction = (checkData) => {
     // console.log(serialNumber)
     return (dispatch) => {
-        console.log(checkData)
+        // console.log(checkData)
         dispatch(checkAsset);
         return checkAssetWithSerialNumber({serialNumber:checkData.serialNumber,userId:checkData.userId})
         .then((asset) =>{

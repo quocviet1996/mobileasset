@@ -64,7 +64,7 @@ class Generate extends Component {
     render() {
         const checkModal = this.state.showModalCheck ?
             <View style={styles.container}>
-                <CheckModal ref={'checkmodal'} parent={this}></CheckModal>
+                <CheckModal asset={this.props.asset} ref={'checkmodal'} parent={this}></CheckModal>
             </View> : <View style={{ flex: 1 }}>
                 <CameraKitCameraScreen
                     showFrame={false}
@@ -81,10 +81,14 @@ class Generate extends Component {
                         this.onBarcodeScan(event.nativeEvent.codeStringValue)
                     }
                 />
-                <CheckModal ref={'checkmodal'} parent={this}></CheckModal>
+                {/* <CheckModal ref={'checkmodal'} parent={this}></CheckModal> */}
             </View>
         return (
-            {checkModal}
+            <View style={{flex:1}}>
+                {checkModal}
+
+            </View>
+
             // <View style={{ flex: 1 }}>
             //     <CameraKitCameraScreen
             //         showFrame={false}
