@@ -5,7 +5,7 @@ const { width } = Dimensions.get('window');
 export default StyleSheet.create({
     wrapper: { flex: 1 },
     header: {
-        flex: 0.1,
+        flex: 1,
         backgroundColor: '#2ABB9C',
         alignItems: 'center',
         justifyContent: 'center',
@@ -21,7 +21,7 @@ export default StyleSheet.create({
         height: 30
     },
     body: {
-        flex: 1,
+        flex: 10,
         backgroundColor: '#F6F6F6'
     },
     orderRow: {

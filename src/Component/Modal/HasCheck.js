@@ -14,7 +14,7 @@ import {
 
 } from 'react-native';
 import Modal from 'react-native-modalbox';
-import CheckModal from './CheckModal';
+import CheckModal from './CheckModal/CheckModal';
 
 export default class CheckModal extends Component {
     componentDidMount(){

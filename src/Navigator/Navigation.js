@@ -3,12 +3,34 @@ import { createMaterialTopTabNavigator, createStackNavigator, createSwitchNaviga
 import Splash from '../Component/SplashScreen';
 import ListAsset from '../Component/AssetScreen';
 import Login from '../Component/LoginScreen';
+import CheckModal from '../Component/Modal/CheckModal/CheckModal';
+import AcceptModal from '../Component/Modal/AcceptModal';
+import AddAssetModal from '../Component/Modal/AddAssetModal';
+import AddAsset from '../Component/AddAssetScreen';
 import Scanner from '../Component/Scanner';
 import {
     View,
     Text,
 } from 'react-native';
 import { Icon } from 'native-base';
+const Scannera = createStackNavigator({
+    Scanner: {
+        screen: Scanner
+    },
+    CheckModal: {
+        screen: CheckModal
+    },
+
+    AcceptModal: {
+        screen: AcceptModal
+    },
+    // AddAsset:{
+    //     screen:AddAsset
+    // }
+
+}, {
+        headerMode: "none",
+    })
 const bottom = createBottomTabNavigator({
     ListAsset: {
         screen: ListAsset,
@@ -26,7 +48,7 @@ const bottom = createBottomTabNavigator({
         },
     },
     Scanner: {
-        screen: Scanner,
+        screen: Scannera,
         navigationOptions: {
             tabBarLabel: ({ tintColor }) =>
                 <View style={{
@@ -58,32 +80,14 @@ const bottom = createBottomTabNavigator({
 const stack1 = createStackNavigator({
     Login: {
         screen: Login,
-        // navigationOptions: {
-        //     header: () => {
-        //         <View
-        //             style={{
-        //                 height: 45,
-        //                 marginTop: 20,
-        //                 backgroundColor: 'red',
-        //                 justifyContent: 'center',
-        //             }}>
-        //             <Text
-        //                 style={{
-        //                     color: 'white',
-        //                     textAlign: 'center',
-        //                     fontWeight: 'bold',
-        //                     fontSize: 18,
-        //                 }}>
-        //                 This is Custom Header
-        //   </Text>
-        //         </View>
-
-        //     },
-        // }
     },
     bottom: {
         screen: bottom
     },
+    AddAsset:{
+        screen:AddAsset
+    }
+
 },
     {
         initialRouteName: "Login",

@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import {
     View, TouchableOpacity, Text, Image, StyleSheet, Dimensions, FlatList,
-    RefreshControl,
+    RefreshControl, ActivityIndicator,
+    Alert
 } from 'react-native';
 import backSpecial from '../../img/forward.png';
 import { connect } from 'react-redux';
@@ -26,33 +27,88 @@ class Asset extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            refresh: false,
             pageIndex: 1,
             pageSize: 3,
-            asset:[]
+            asset: [],
+            loading: false,
+            refresh: false,
         };
     }
     componentDidMount() {
+        // this.setState({ loading: true });
         this.props.assetAction({ userId: this.props.user[0].id, pageIndex: this.state.pageIndex, pageSize: this.state.pageSize })
-        .then(() => {
-            this.setState({asset:this.props.asset})
-        })
-    }
-    onRefresh() {
-        try {
-            const page = this.state.pageIndex + 1;
-            this.setState({ refresh: true })
-            this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
-            .then(() =>{
-                this.setState({asset:this.props.asset.concat(this.state.asset),pageIndex:this.state.pageIndex + 1,refresh:false})
+            .then(() => {
+                this.setState({ asset: this.props.asset })
             })
-        }
-        catch{
-            this.setState({ refresh: false })
-        }
-
     }
 
+    handleLoadMore = () => {
+
+        if (!this.onEndReachedCalledDuringMomentum && !this.state.loading) {
+            this.setState({ loading: true })
+            const page = this.state.pageIndex + 1;
+            this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
+                .then(() => {
+                    if (this.props.asset.length > 0) {
+                        this.setState({ asset: this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1, loading: false })
+                    }
+                    else {
+                        this.setState({ loading: false });
+                        return Alert.alert("Không còn tài sản");
+
+                    }
+                })
+            this.onEndReachedCalledDuringMomentum = true;
+        }
+
+
+        // if (!this.state.loading) {
+        //     this.setState({ loading: true })
+        //     const page = this.state.pageIndex + 1;
+        //     this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
+        //         .then(() => {
+        //             if (this.props.asset.length > 0) {
+        //                 this.setState({ asset: this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1,loading:false })
+        //             }
+        //             else {
+        //                 this.setState({ loading: false});
+        //                 return Alert.alert("Không còn tài sản");
+
+        //             }
+        //         })
+        // }
+    };
+    // onRefresh() {
+    //     if (!this.state.loading) {
+    //         try {
+    //             const page = this.state.pageIndex + 1;
+    //             this.setState({ loading: true })
+    //             this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
+    //                 .then(() => {
+    //                     this.setState({ asset: this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1 })
+    //                 })
+    //         }
+    //         catch{
+    //             this.setState({ fetching_from_server: false })
+    //         }
+    //     }
+
+    // }
+    renderFooter = () => {
+        return (
+            //Footer View with Load More
+            <View style={{
+                padding: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                {this.state.loading ?
+                    <ActivityIndicator color='black' size='large' />
+                    : null}
+            </View>
+        );
+
+    };
     onFlatList(asset) {
         if (asset.length > 0) {
             return <FlatList
@@ -62,12 +118,31 @@ class Asset extends Component {
                 refreshControl={
                     <RefreshControl
                         refreshing={this.state.refresh}
-                        onRefresh={() => this.onRefresh()}
+                    // onRefresh={() => this.onRefresh()}
+                    // loadOnEndReached={() => this.loadOnEndReached()}
                     />
                 }
+                // ListFooterComponent={() => this.rederFooter()}
+                onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+                onEndReachedThreshold={0.01}
+                onEndReached={this.handleLoadMore}
+                ListFooterComponent={this.renderFooter}
+
+
             />
         }
     }
+    renderSeparator = () => {
+        return (
+            <View
+                style={{
+                    height: 2,
+                    width: '100%',
+                    backgroundColor: '#CED0CE'
+                }}
+            />
+        );
+    };
     render() {
         return (
             <View style={styles.wrapper}>
