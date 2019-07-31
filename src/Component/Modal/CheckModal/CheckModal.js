@@ -26,22 +26,26 @@ export default class CheckModal extends Component {
             isVisible: false
         })
     }
-    // componentDidMount() {
-    //     this.refs.modal.open();
-    //     this.refs.modal.close(1000);
+    componentDidMount() {
+        // this.refs.modal.open();
+        // // this.refs.modal.open();
+        // setTimeout(() => {
+        //     this.refs.modal.close();
+        //     this.props.navigation.goBack();
 
-    // }
+
+        // }, 2000);
+
+    }
     showAddModal = (asset) => {
         // console.log(asset)
         this.setState({ asset: asset }, () => {
             this.refs.modal.open();
             setTimeout(() => {
                 this.refs.modal.close();
-    
-    
             }, 2000);
-
         });
+
         // this.refs.modal.open();
     }
     onPress() {
@@ -49,26 +53,19 @@ export default class CheckModal extends Component {
         this.props.navigation.goBack();
         // this.props.navigation.navigate("Scanner");
     }
-    onShow() {
-        console.log("aaaaaaaaaaa")
-        setTimeout(() => {
-            this.refs.modal.close();
 
-
-        }, 3000);
-
-    }
     render() {
         const { id, name, createdAt, updateAt, quantity } = this.state.asset;
+        // const { id, name, createdAt, updateAt, quantity } = this.props.navigation.state.params;
 
         return (
             // console.log(this.props.navigation.state.params),
             <Modal
                 // isVisible={isDisplayCheckModal}
-                // swipeToClose={isDisplayCheckModal}
+                swipeToClose={false}
                 // backButtonClose={true}
                 animationType={"slide"}
-                onShow={() => this.onShow()}
+                // onShow={() => this.onShow()}
                 transparent={false}
                 position='center'
                 backdrop={true}
