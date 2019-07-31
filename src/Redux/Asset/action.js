@@ -3,7 +3,7 @@ import {
     ASSET_SUCCESS,
     ASSET_FAILURED
 } from './actionTypes';
-import { getAssetWithUserId } from '../User/api';
+import { getAssetWithUserId, AssetPull } from '../User/api';
 const assetRequest = () => {
     return {
         type: ASSET_REQUEST
@@ -20,6 +20,23 @@ const assetFailured = () => {
     return {
         type: ASSET_FAILURED
     }
+}
+export const assetPull = (asset) => {
+    return (dispatch) => {
+        dispatch(assetRequest);
+        return AssetPull(asset)
+            .then((asset) => {
+                if (asset.data.asset) {
+                    dispatch(assetSuccess(asset.data.asset))
+                }
+                else {
+                    dispatch(assetFailured())
+                }
+            }).catch((error) => {
+                dispatch(assetFailured)
+            })
+    }
+
 }
 const assetAction = (asset) => {
     return (dispatch) => {

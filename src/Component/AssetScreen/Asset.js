@@ -5,14 +5,11 @@ import {
     RefreshControl, ActivityIndicator,
     Alert
 } from 'react-native';
-import backSpecial from '../../img/forward.png';
 import { connect } from 'react-redux';
-import { assetAction } from '../../Redux/action';
+import { assetAction, assetPull } from '../../Redux/action';
 import FlatListItem from './FlatListItem';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
-import { Icon } from 'native-base';
-import { black } from 'ansi-colors';
 import styles from './Styles';
 const { width } = Dimensions.get('window');
 function toTitleCase(str) {
@@ -28,17 +25,19 @@ class Asset extends Component {
         super(props);
         this.state = {
             pageIndex: 1,
-            pageSize: 3,
+            pageSize: 4,
             asset: [],
             loading: false,
             refresh: false,
         };
     }
     componentDidMount() {
+        // this.props.assetPull({userId: this.props.user[0].id, pageIndex: this.state.pageIndex, pageSize: this.state.pageSize})
+        // .then(() => console.log(this.props.asset))
         // this.setState({ loading: true });
         this.props.assetAction({ userId: this.props.user[0].id, pageIndex: this.state.pageIndex, pageSize: this.state.pageSize })
             .then(() => {
-                this.setState({ asset: this.props.asset })
+                this.setState({ asset: this.props.asset})
             })
     }
 
@@ -50,7 +49,7 @@ class Asset extends Component {
             this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
                 .then(() => {
                     if (this.props.asset.length > 0) {
-                        this.setState({ asset: this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1, loading: false })
+                        this.setState({ asset:this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1, loading: false })
                     }
                     else {
                         this.setState({ loading: false });
@@ -60,40 +59,19 @@ class Asset extends Component {
                 })
             this.onEndReachedCalledDuringMomentum = true;
         }
-
-
-        // if (!this.state.loading) {
-        //     this.setState({ loading: true })
-        //     const page = this.state.pageIndex + 1;
-        //     this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
-        //         .then(() => {
-        //             if (this.props.asset.length > 0) {
-        //                 this.setState({ asset: this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1,loading:false })
-        //             }
-        //             else {
-        //                 this.setState({ loading: false});
-        //                 return Alert.alert("Không còn tài sản");
-
-        //             }
-        //         })
-        // }
     };
-    // onRefresh() {
-    //     if (!this.state.loading) {
-    //         try {
-    //             const page = this.state.pageIndex + 1;
-    //             this.setState({ loading: true })
-    //             this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
-    //                 .then(() => {
-    //                     this.setState({ asset: this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1 })
-    //                 })
-    //         }
-    //         catch{
-    //             this.setState({ fetching_from_server: false })
-    //         }
-    //     }
-
-    // }
+    onRefresh() {
+        this.setState({ refresh: true })
+        try {
+            const page = 1;
+            this.setState({pageIndex:1 })
+            this.props.assetPull({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
+                .then(() => this.setState({ asset: this.props.asset, pageIndex: this.state.pageIndex + 1,refresh:false }))
+        }
+        catch{
+            this.setState({ refresh: false })
+        }
+    }
     renderFooter = () => {
         return (
             //Footer View with Load More
@@ -118,11 +96,9 @@ class Asset extends Component {
                 refreshControl={
                     <RefreshControl
                         refreshing={this.state.refresh}
-                    // onRefresh={() => this.onRefresh()}
-                    // loadOnEndReached={() => this.loadOnEndReached()}
+                        onRefresh={() => this.onRefresh()}
                     />
                 }
-                // ListFooterComponent={() => this.rederFooter()}
                 onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
                 onEndReachedThreshold={0.01}
                 onEndReached={this.handleLoadMore}
@@ -155,6 +131,29 @@ class Asset extends Component {
                 </View>
                 <View style={styles.body}>
                     {this.onFlatList(this.state.asset)}
+                    {/* {this.props.asset.length > 0 ?
+                        <FlatList
+                            data={asset}
+                            renderItem={({ item }) => { return <FlatListItem item={item} parent={this} /> }}
+                            keyExtractor={(item) => item.id.toString()}
+                            refreshControl={
+                                <RefreshControl
+                                    refreshing={this.state.refresh}
+                                // onRefresh={() => this.onRefresh()}
+                                // loadOnEndReached={() => this.loadOnEndReached()}
+                                />
+                            }
+                            // ListFooterComponent={() => this.rederFooter()}
+                            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+                            onEndReachedThreshold={0.01}
+                            onEndReached={this.handleLoadMore}
+                            ListFooterComponent={this.renderFooter}
+
+
+                        />:<View>
+
+                        </View>
+                    } */}
                 </View>
             </View>
         );
@@ -170,7 +169,8 @@ function mapStateToProps(state) {
 }
 function dispatchToProps(dispatch) {
     return bindActionCreators({
-        assetAction
+        assetAction,
+        assetPull
     }, dispatch);
 }
 

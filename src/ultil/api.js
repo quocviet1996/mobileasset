@@ -4,3 +4,5 @@ export const GET_USER = DOMAIN_URL  + "user";
 // export const GET_ASSET_ID = DOMAIN_URL + "asset/id";
 export const GET_ASSET_ID = DOMAIN_URL + "asset/loadPage";
 export const CHECK_ASSET_SERIALNUMBER = DOMAIN_URL + "asset/findBySerialNumber";
+export const ASSET_PULL_TO_REFRESH = DOMAIN_URL + "asset/refresh";
+

@@ -201,18 +201,64 @@
 // }
 // export default connect(mapStateToProps, dispatchToProps)(Generate);
 import React, { PureComponent } from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  StyleSheet, Text,
+  View,
+  TouchableOpacity,
+  PermissionsAndroid,
+  Platform,
+  ImageBackground,
+  Image,
+  TouchableHighlight,
+  Alert
+} from 'react-native';
 import { RNCamera } from 'react-native-camera';
-
-export default class Scanner extends PureComponent {
+import BarcodeMask from 'react-native-barcode-mask';
+// import styles from './Styles';
+import { checkAssetAction } from '../../Redux/action';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import backgroundImage from 'images/Scan_background.jpg';
+import CheckModal from '../Modal/CheckModal/CheckModal';
+class Scanner extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = ({
+      isDisplayCheckModal: false,
+    })
+  }
+  handleDisplayModal = () => {
+    this.setState({
+      isDisplayCheckModal: !this.state.isDisplayCheckModal
+    });
+  }
+  ScanQR(barcodes) {
+    if (barcodes.length > 0) {
+      this.props.checkAssetAction({ serialNumber: barcodes[0].dataRaw, userId: this.props.user[0].id })
+        .then((value) => {
+          if (this.props.asset.length > 0) {
+            // console.log(this.props.asset)
+            this.refs.checkmodal.showAddModal(this.props.asset[0]);
+          }
+          else {
+            this.props.navigation.navigate("AcceptModal", barcodes[0].dataRaw)
+          }
+        })
+    }
+  }
   render() {
     return (
       <View style={styles.container}>
+        <CheckModal
+          ref={"checkmodal"}
+          isDisplayCheckModal={this.state.isDisplayCheckModal}
+
+        >
+        </CheckModal>
         <RNCamera
           ref={ref => {
             this.camera = ref;
           }}
-          
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
           flashMode={RNCamera.Constants.FlashMode.on}
@@ -228,20 +274,16 @@ export default class Scanner extends PureComponent {
             buttonPositive: 'Ok',
             buttonNegative: 'Cancel',
           }}
-          onGoogleVisionBarcodesDetected={({ barcodes }) => {
-            console.log(barcodes[0].dataRaw);
-          }}
-        />
-        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-          <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
-          </TouchableOpacity>
-        </View>
+          onGoogleVisionBarcodesDetected={({ barcodes }) => this.ScanQR(barcodes)}
+        >
+          <BarcodeMask showAnimatedLine={false}  width={300} height={200} edgeBorderWidth={1}/>
+        </RNCamera>
+
       </View>
     );
   }
 
-  takePicture = async() => {
+  takePicture = async () => {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
       const data = await this.camera.takePictureAsync(options);
@@ -271,3 +313,15 @@ const styles = StyleSheet.create({
     margin: 20,
   },
 });
+function mapStateToProps(state) {
+  return {
+    asset: state.checkAssetReducer.asset,
+    user: state.SignInReducer.User
+  }
+}
+function dispatchToProps(dispatch) {
+  return bindActionCreators({
+    checkAssetAction
+  }, dispatch)
+}
+export default connect(mapStateToProps, dispatchToProps)(Scanner);

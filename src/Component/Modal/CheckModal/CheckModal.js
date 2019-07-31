@@ -19,33 +19,57 @@ import { Icon } from 'native-base';
 import moment from 'moment';
 
 export default class CheckModal extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         asset: null,
-    //     }
-    // }
-    componentDidMount() {
-        this.refs.modal.open();
+    constructor(props) {
+        super(props)
+        this.state = ({
+            asset: [],
+            isVisible: false
+        })
     }
-    // showAddModal = (asset) => {
-    //     // console.log(asset)
-    //     this.setState({ asset: asset });
+    // componentDidMount() {
     //     this.refs.modal.open();
+    //     this.refs.modal.close(1000);
+
     // }
-    onPress(){
+    showAddModal = (asset) => {
+        // console.log(asset)
+        this.setState({ asset: asset }, () => {
+            this.refs.modal.open();
+            setTimeout(() => {
+                this.refs.modal.close();
+    
+    
+            }, 2000);
+
+        });
+        // this.refs.modal.open();
+    }
+    onPress() {
         this.refs.modal.close();
         this.props.navigation.goBack();
         // this.props.navigation.navigate("Scanner");
     }
+    onShow() {
+        console.log("aaaaaaaaaaa")
+        setTimeout(() => {
+            this.refs.modal.close();
 
+
+        }, 3000);
+
+    }
     render() {
+        const { id, name, createdAt, updateAt, quantity } = this.state.asset;
+
         return (
             // console.log(this.props.navigation.state.params),
             <Modal
-                swipeToClose={false}
-                backButtonClose={true}
-                transparent={true}
+                // isVisible={isDisplayCheckModal}
+                // swipeToClose={isDisplayCheckModal}
+                // backButtonClose={true}
+                animationType={"slide"}
+                onShow={() => this.onShow()}
+                transparent={false}
                 position='center'
                 backdrop={true}
                 ref={"modal"}
@@ -55,23 +79,23 @@ export default class CheckModal extends Component {
                 <View style={styles.orderRow}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>Asset Id:</Text>
-                        <Text style={styles.textvalue}>ASS{this.props.navigation.state.params.id}</Text>
+                        <Text style={styles.textvalue}>ASS{id}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>Name:</Text>
-                        <Text style={styles.textvalue}>{this.props.navigation.state.params.name}</Text>
+                        <Text style={styles.textvalue}>{name}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>CreateAt:</Text>
-                        <Text style={{ ...this.state, color: '#f44336' }}>{moment(this.props.navigation.state.params.createdAt).format("DD-MM-YYYY : h:mm:ss a")}</Text>
+                        <Text style={{ ...styles.textvalue, color: '#f44336' }}>{moment(createdAt).format("DD-MM-YYYY : h:mm:ss a")}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>UpdateAt:</Text>
-                        <Text style={styles.textvalue}>{moment(this.props.navigation.state.params.createdAt).format("DD-MM-YYYY : h:mm:ss a")}</Text>
+                        <Text style={styles.textvalue}>{moment(updateAt).format("DD-MM-YYYY : h:mm:ss a")}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>Quantity:</Text>
-                        <Text style={{ ...this.state, color: '#f44336' }}>{this.props.navigation.state.params.quantity}</Text>
+                        <Text style={{ ...styles.textvalue, color: '#f44336' }}>{quantity}</Text>
                     </View>
                 </View>
                 <View style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }}>
