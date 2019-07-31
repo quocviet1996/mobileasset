@@ -13,10 +13,11 @@ import {
 import FlatListItem from './FlatListItem';
 // import all basic components
 import QRCode from 'react-native-qrcode';
-import GET_ONE_ASSET from './ultil/api';
+import {GET_ONE_ASSET} from './ultil/api';
+
 //import QRCode
 
-class App extends Component {
+export default class A extends Component {
   constructor() {
     super();
     this.state = {
@@ -27,19 +28,26 @@ class App extends Component {
       // Default value for the QR Code
     };
   }
-  componentDidMount() {
-    fetch(GET_ONE_ASSET)
-      .then((response) => response.json())
-      .then((responseJson) => this.setState({ asset: responseJson.data }))
-      .catch((error) => console.log("error " + error))
-  }
+  // componentDidMount() {
+  //   fetch(GET_ONE_ASSET)
+  //     .then((response) => response.json())
+  //     .then((responseJson) => this.setState({ asset: responseJson.data }))
+  //     .catch((error) => console.log("error " + error))
+  // }
+
 
   render() {
     return (
-      // console.log(this.state.asset),
       <View style={styles.MainContainer}>
+        <FlatList
+          data={this.state.asset}
+          renderItem={({ item }) => {
+            return <FlatListItem item={item}> </FlatListItem>
+          }}
+        >
+        </FlatList>
         <QRCode
-          value={this.state.asset}
+          value={this.props.asset}
           //Setting the value of QRCode
           size={250}
           //Size of QRCode
@@ -58,7 +66,6 @@ class App extends Component {
     );
   }
 }
-export default App;
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,

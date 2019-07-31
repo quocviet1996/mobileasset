@@ -8,6 +8,7 @@ import AcceptModal from '../Component/Modal/AcceptModal';
 import AddAssetModal from '../Component/Modal/AddAssetModal';
 import AddAsset from '../Component/AddAssetScreen';
 import Scanner from '../Component/Scanner';
+import A from '../A';
 import {
     View,
     Text,
@@ -84,10 +85,12 @@ const stack1 = createStackNavigator({
     bottom: {
         screen: bottom
     },
-    AddAsset:{
-        screen:AddAsset
-    }
-
+    AddAsset: {
+        screen: AddAsset
+    },
+    A: {
+        screen: A
+    },
 },
     {
         initialRouteName: "Login",

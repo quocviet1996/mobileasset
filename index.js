@@ -36,4 +36,4 @@ export default class App extends Component {
         )
     }
 }
-AppRegistry.registerComponent(appName, () => A);
+AppRegistry.registerComponent(appName, () => App);
