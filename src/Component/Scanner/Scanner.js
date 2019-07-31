@@ -241,16 +241,10 @@ class Scanner extends Component {
       .then((value) => {
         if (this.props.asset.length > 0) {
           this.setState({ isScanned: false });
-
-          // console.log(this.props.asset)
-          // this.props.navigation.navigate("CheckModal",this.props.asset[0])
-          // this.setState({ isScanned: false }, () => {
-          //   this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned);
-          // })
           this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
           setTimeout(() => {
             this.setState({ isScanned: true })
-          },2000)
+          }, 3000)
         }
         else {
           this.props.navigation.navigate("AcceptModal", barcodes[0].dataRaw)
