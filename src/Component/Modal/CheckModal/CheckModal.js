@@ -97,9 +97,9 @@ export default class CheckModal extends Component {
                     </View>
                 </View>
                 <View style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }}>
-                    <Text style={{ fontSize: 15, fontWeight: "bold" }}>your asset have been check</Text>
+                    {/* <Text style={{ fontSize: 15, fontWeight: "bold" }}>your asset have been check</Text> */}
                     <TouchableOpacity onPress={() => this.onPress()}>
-                        <Icon type={"FontAwesome"} name="check" style={{ fontSize: 60, color: "#4ac51d" }}></Icon>
+                        <Icon type={"FontAwesome"} name="check" style={{ fontSize: 70, color: "#4ac51d" }}></Icon>
                     </TouchableOpacity>
                 </View>
             </Modal>

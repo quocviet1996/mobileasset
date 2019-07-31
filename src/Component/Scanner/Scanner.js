@@ -245,7 +245,7 @@ class Scanner extends Component {
           this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
           setTimeout(() => {
             this.setState({ isScanned: true })
-          }, 3000)
+          }, 3500)
         }
         else {
           this.props.navigation.navigate("AcceptModal", barcodes[0].dataRaw)
