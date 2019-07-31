@@ -23,6 +23,7 @@ export default class CheckModal extends Component {
         super(props)
         this.state = ({
             asset: [],
+            isScanned:false,
             isVisible: false
         })
     }
@@ -37,9 +38,9 @@ export default class CheckModal extends Component {
         // }, 2000);
 
     }
-    showAddModal = (asset) => {
+    showAddModal = (asset,isScanned) => {
         // console.log(asset)
-        this.setState({ asset: asset }, () => {
+        this.setState({ asset: asset,isScanned }, () => {
             this.refs.modal.open();
             setTimeout(() => {
                 this.refs.modal.close();
