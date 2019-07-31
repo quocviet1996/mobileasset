@@ -227,8 +227,18 @@ class Scanner extends Component {
     super(props);
     this.state = ({
       isDisplayCheckModal: false,
-      isScanned: true
+      isScanned: true,
+      focusedScreen: false
     })
+  }
+  componentDidMount() {
+    const { navigation } = this.props;
+    navigation.addListener('willFocus', () =>
+      this.setState({ focusedScreen: true })
+    );
+    navigation.addListener('willBlur', () =>
+      this.setState({ focusedScreen: false })
+    );
   }
   handleDisplayModal = () => {
     this.setState({
@@ -254,48 +264,56 @@ class Scanner extends Component {
     // }
   }
   render() {
-    return (
-      <View style={styles.container}>
-        <CheckModal
-          ref={"checkmodal"}
-          isDisplayCheckModal={this.state.isDisplayCheckModal}
-
-        >
-        </CheckModal>
-        <RNCamera
-          ref={ref => {
-            this.camera = ref;
-          }}
-          // reactivateTimeout
-          style={styles.preview}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
-          androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          androidRecordAudioPermissionOptions={{
-            title: 'Permission to use audio recording',
-            message: 'We need your permission to use your audio',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          oogleVisionBarcodeType={RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.QR_CODE}
-          onGoogleVisionBarcodesDetected={({ barcodes }) => {
-            if (barcodes.length > 0) {
-              if (this.state.isScanned) {
-                this.ScanQR(barcodes)
+    const { focusedScreen } = this.state;
+    if (focusedScreen){
+      return (
+        <View style={styles.container}>
+          <CheckModal
+            ref={"checkmodal"}
+            isDisplayCheckModal={this.state.isDisplayCheckModal}
+  
+          >
+          </CheckModal>
+          <RNCamera
+            ref={ref => {
+              this.camera = ref;
+            }}
+            // reactivateTimeout
+            style={styles.preview}
+            type={RNCamera.Constants.Type.back}
+            flashMode={RNCamera.Constants.FlashMode.on}
+            androidCameraPermissionOptions={{
+              title: 'Permission to use camera',
+              message: 'We need your permission to use your camera',
+              buttonPositive: 'Ok',
+              buttonNegative: 'Cancel',
+            }}
+            androidRecordAudioPermissionOptions={{
+              title: 'Permission to use audio recording',
+              message: 'We need your permission to use your audio',
+              buttonPositive: 'Ok',
+              buttonNegative: 'Cancel',
+            }}
+            oogleVisionBarcodeType={RNCamera.Constants.GoogleVisionBarcodeDetection.BarcodeType.QR_CODE}
+            onGoogleVisionBarcodesDetected={({ barcodes }) => {
+              if (barcodes.length > 0) {
+                if (this.state.isScanned) {
+                  this.ScanQR(barcodes)
+                }
               }
-            }
-          }}
-        >
-          <BarcodeMask showAnimatedLine={false} width={300} height={200} edgeBorderWidth={1} />
-        </RNCamera>
+            }}
+          >
+            <BarcodeMask showAnimatedLine={false} width={300} height={200} edgeBorderWidth={1} />
+          </RNCamera>
+  
+        </View>
+      );
+    }
+    else{
+      return (<View></View>);
+    }
 
-      </View>
-    );
+    
   }
 
   takePicture = async () => {
