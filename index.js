@@ -22,6 +22,7 @@ import Navigation from './src/Navigator';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import configureStore from './src/Redux';
+import A from './src/A';
 
 const persistor = persistStore(configureStore)
 export default class App extends Component {
@@ -35,4 +36,4 @@ export default class App extends Component {
         )
     }
 }
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => A);
