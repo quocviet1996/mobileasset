@@ -236,11 +236,12 @@ class Scanner extends Component {
     });
   }
   ScanQR(barcodes) {
+    this.setState({ isScanned: false });
+
     // if (barcodes.length > 0) {
     this.props.checkAssetAction({ serialNumber: barcodes[0].dataRaw, userId: this.props.user[0].id })
       .then((value) => {
         if (this.props.asset.length > 0) {
-          this.setState({ isScanned: false });
           this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
           setTimeout(() => {
             this.setState({ isScanned: true })
