@@ -19,8 +19,7 @@ import { Icon } from 'native-base';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { checkScannedAction } from '../../../Redux/action';
-import {changeScanned} from '../../../services/api';
+import { checkScannedAction, changeScanned } from '../../../Redux/action';
 class CheckModal extends Component {
     constructor(props) {
         super(props)
@@ -31,28 +30,34 @@ class CheckModal extends Component {
         })
     }
     showAddModal = (asset, isScanned) => {
-        this.props.checkScannedAction({ id: asset.id })
-            .then(() => {
-                if (!this.props.hasCheck[0].isScanned){
-                    changeScanned({id:asset.id})
-                    .then((value) => console.log(value))
+        this.setState({ asset: asset, isScanned }, () => {
+            this.refs.modal.open();
+            setTimeout(() => {
+                this.refs.modal.close();
+            }, 2000);
+        });
+        // this.props.checkScannedAction({ id: asset.id })
+        //     .then(() => {
+        //         if (!this.props.hasCheck[0].isScanned) {
+        //             this.props.changeScanned({ id: asset.id })
+        //                 .then((value) => console.log(this.props.isScanned))
 
-                    this.setState({ asset: asset, isScanned }, () => {
-                        this.refs.modal.open();
-                        setTimeout(() => {
-                            this.refs.modal.close();
-                        }, 2000);
-                    });
-                }
-                else{
+        //             this.setState({ asset: asset, isScanned }, () => {
+        //                 this.refs.modal.open();
+        //                 setTimeout(() => {
+        //                     this.refs.modal.close();
+        //                 }, 2000);
+        //             });
+        //         }
+        //         else {
 
-                }
-                
-                // console.log(this.props.hasCheck)
-            })
+        //         }
+
+        //         // console.log(this.props.hasCheck)
+        //     })
 
         // console.log(asset)
-      
+
 
         // this.refs.modal.open();
     }
@@ -63,7 +68,7 @@ class CheckModal extends Component {
     // }
 
     render() {
-        const { id, name, createdAt, updateAt, quantity } = this.state.asset;
+        const { id, name, createdAt, updateAt, quantity,isScanned } = this.state.asset;
         // const { id, name, createdAt, updateAt, quantity } = this.props.navigation.state.params;
 
         return (
@@ -100,7 +105,7 @@ class CheckModal extends Component {
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>Quantity:</Text>
-                        <Text style={{ ...styles.textvalue, color: '#f44336' }}>{quantity}</Text>
+                        <Text style={{ ...styles.textvalue, color: '#f44336' }}>{isScanned}</Text>
                     </View>
                 </View>
                 <View style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }}>
@@ -116,13 +121,16 @@ class CheckModal extends Component {
 function mapStateToProps(state) {
     return {
         hasCheck: state.checkScannedReducer.data,
+        isScanned: state.checkScannedReducer.isScanned
+
     }
 
 }
 function dispatchToProps(dispatch) {
     return bindActionCreators({
-        checkScannedAction
+        checkScannedAction,
+        changeScanned
     }, dispatch)
 }
-export default connect(mapStateToProps, dispatchToProps,null,{ forwardRef: true })(CheckModal);
+export default connect(mapStateToProps, dispatchToProps, null, { forwardRef: true })(CheckModal);
 

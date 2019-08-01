@@ -1,9 +1,9 @@
-import { CHECK_SCANNED_REQUEST, CHECK_SCANNED_SUCCESS, CHECK_SCANNED_FAILURED ,CHANGE_IS_SCANNED} from './actionType';
+import { CHECK_SCANNED_REQUEST, CHECK_SCANNED_SUCCESS, CHECK_SCANNED_FAILURED, CHANGE_IS_SCANNED } from './actionType';
 const initialState = {
     data: [],
     success: false,
     error: false,
-    isScanned:false,
+    isScanned: false,
 }
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -28,7 +28,7 @@ export default (state = initialState, action) => {
         case CHANGE_IS_SCANNED:
             return {
                 ...state,
-                isScanned:action.isScanned
+                isScanned: true
             }
         default:
             return state;

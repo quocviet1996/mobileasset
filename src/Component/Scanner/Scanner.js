@@ -222,6 +222,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import backgroundImage from 'images/Scan_background.jpg';
 import CheckModal from '../Modal/CheckModal/CheckModal';
+import { checkScannedAction, changeScanned } from '../../Redux/action';
+import { changeScannedAsset } from '../../services/api';
+
 class Scanner extends Component {
   constructor(props) {
     super(props);
@@ -252,10 +255,30 @@ class Scanner extends Component {
     this.props.checkAssetAction({ serialNumber: asset.serialnumber, userId: this.props.user[0].id })
       .then((value) => {
         if (this.props.asset.length > 0) {
-          this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
-          setTimeout(() => {
-            this.setState({ isScanned: true })
-          }, 4000)
+          this.props.checkScannedAction({ id: asset.id })
+            .then(() => {
+              if (!this.props.hasCheck[0].isScanned) {
+                this.props.changeScanned({ id: asset.id })
+                  .then(() => {
+                    this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
+                    setTimeout(() => {
+                      this.setState({ isScanned: true })
+                    }, 4000)
+                  })
+
+              }
+              else {
+                Alert.alert("tài sản đã được kiểm tra rồi")
+                setTimeout(() => {
+                  this.setState({ isScanned: true })
+                }, 4000)
+
+              }
+            })
+          // this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
+          // setTimeout(() => {
+          //   this.setState({ isScanned: true })
+          // }, 4000)
         }
         else {
           this.props.navigation.navigate("AcceptModal", barcodes[0].dataRaw)
@@ -348,12 +371,16 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return {
     asset: state.checkAssetReducer.asset,
-    user: state.SignInReducer.User
+    user: state.SignInReducer.User,
+    hasCheck: state.checkScannedReducer.data,
+    isScanned: state.checkScannedReducer.isScanned
   }
 }
 function dispatchToProps(dispatch) {
   return bindActionCreators({
-    checkAssetAction
+    checkAssetAction,
+    checkScannedAction,
+    changeScanned,
   }, dispatch)
 }
 export default connect(mapStateToProps, dispatchToProps)(Scanner);

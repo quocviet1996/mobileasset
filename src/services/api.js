@@ -70,12 +70,12 @@ export function checkScannedAsset(data) {
         console.log(error)
     }
 }
-export function changeScanned(data) {
+export function changeScannedAsset(data) {
     try {
         const resposne = axios.post(CHANGE_ISSCANNED,{
             id:data.id
         })
-        console.log(resposne)
+        // console.log(resposne)
         return resposne;
     }
     catch (error) {
