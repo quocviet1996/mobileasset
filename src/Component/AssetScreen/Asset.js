@@ -14,7 +14,7 @@ import styles from './Styles';
 import { Icon } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
 import { LinearTextGradient } from "react-native-text-gradient";
-import {removeAccountUser} from '../../Storage/storage';
+import { removeAccountUser } from '../../Storage/storage';
 
 const { width } = Dimensions.get('window');
 function toTitleCase(str) {
@@ -116,10 +116,9 @@ class Asset extends Component {
     onSignOut() {
         // console.log("a")
         // this.props.signOutAction();
-        setTimeout(() => {
-            removeAccountUser()
+        removeAccountUser().then(() => {
             this.props.navigation.navigate('Login');
-        }, 1000);
+        })
         // removeAccountUser();
         // this.props.navigation.navigate("Login");
         // this.props
