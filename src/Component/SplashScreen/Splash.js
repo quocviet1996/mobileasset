@@ -44,12 +44,17 @@ class Splash extends Component {
                     this.props.signInAction({ username: user.username, password: user.password })
                         .then(() => {
                             // console.log(this.props.user)
-                    return this.props.navigation.navigate("ListAsset")
+                            return this.props.navigation.navigate("ListAsset")
 
 
-                    //     })
-                })}
-                return this.props.navigation.navigate("Login");
+                            //     })
+                        })
+                }
+                else {
+                    return this.props.navigation.navigate("Login");
+
+
+                }
             })
             // // var account = JSON.parse(await getAccountUser());
             // if (this.props.user) {
@@ -58,7 +63,7 @@ class Splash extends Component {
             // else {
             //     return this.props.navigation.navigate("Login")
             // }
-        }, 1000)
+        }, 2000)
     }
     spin() {
         this.state.spinValue
