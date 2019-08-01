@@ -265,14 +265,12 @@ class Scanner extends Component {
                       this.setState({ isScanned: true })
                     }, 4000)
                   })
-
               }
               else {
                 Alert.alert("tài sản đã được kiểm tra rồi")
                 setTimeout(() => {
                   this.setState({ isScanned: true })
                 }, 4000)
-
               }
             })
           // this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
