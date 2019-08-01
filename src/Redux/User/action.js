@@ -4,40 +4,42 @@ import {
     SIGN_IN_FAILURE
 } from './actionTypes';
 // import {api} from '../../Saga/api';
-import {SignInRequest} from './api';
+// import api from '../../services';
 
-const signInRequest =() => {
+import { SignInRequest } from '../../services/api';
+
+const signInRequest = () => {
     return {
         type: SIGN_IN_REQUEST,
-        
+
     }
 }
-const signInSuccess =(User) =>{
+const signInSuccess = (User) => {
     return {
         type: SIGN_IN_SUCCESS,
         User
     }
 }
-const signInFailure=() =>{
+const signInFailure = () => {
     return {
         type: SIGN_IN_FAILURE,
- 
+
     }
 }
-const signInAction=(UserInfo) =>{
-    return (dispatch) =>{
+const signInAction = (UserInfo) => {
+    return (dispatch) => {
         dispatch(signInRequest());
-        return SignInRequest(UserInfo).then((User) =>{
-            if (User != null){
+        return SignInRequest(UserInfo).then((User) => {
+            if (User != null) {
                 dispatch(signInSuccess(User.data.user))
             }
-            else{
+            else {
                 dispatch(signInFailure)
             }
         })
-        .catch((error) =>{
-            dispatch(signInFailure);
-        })
+            .catch((error) => {
+                dispatch(signInFailure);
+            })
 
     }
 }

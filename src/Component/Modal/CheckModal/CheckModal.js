@@ -17,43 +17,50 @@ import Modal from 'react-native-modalbox';
 import styles from './Styles';
 import { Icon } from 'native-base';
 import moment from 'moment';
-
-export default class CheckModal extends Component {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { checkScannedAction } from '../../../Redux/action';
+import {changeScanned} from '../../../services/api';
+class CheckModal extends Component {
     constructor(props) {
         super(props)
         this.state = ({
             asset: [],
-            isScanned:false,
+            isScanned: false,
             isVisible: false
         })
     }
-    componentDidMount() {
-        // this.refs.modal.open();
-        // // this.refs.modal.open();
-        // setTimeout(() => {
-        //     this.refs.modal.close();
-        //     this.props.navigation.goBack();
+    showAddModal = (asset, isScanned) => {
+        this.props.checkScannedAction({ id: asset.id })
+            .then(() => {
+                if (!this.props.hasCheck[0].isScanned){
+                    changeScanned({id:asset.id})
+                    .then((value) => console.log(value))
 
+                    this.setState({ asset: asset, isScanned }, () => {
+                        this.refs.modal.open();
+                        setTimeout(() => {
+                            this.refs.modal.close();
+                        }, 2000);
+                    });
+                }
+                else{
 
-        // }, 2000);
+                }
+                
+                // console.log(this.props.hasCheck)
+            })
 
-    }
-    showAddModal = (asset,isScanned) => {
         // console.log(asset)
-        this.setState({ asset: asset,isScanned }, () => {
-            this.refs.modal.open();
-            setTimeout(() => {
-                this.refs.modal.close();
-            }, 2000);
-        });
+      
 
         // this.refs.modal.open();
     }
-    onPress() {
-        this.refs.modal.close();
-        this.props.navigation.goBack();
-        // this.props.navigation.navigate("Scanner");
-    }
+    // onPress() {
+    //     this.refs.modal.close();
+    //     this.props.navigation.goBack();
+    //     // this.props.navigation.navigate("Scanner");
+    // }
 
     render() {
         const { id, name, createdAt, updateAt, quantity } = this.state.asset;
@@ -106,4 +113,16 @@ export default class CheckModal extends Component {
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        hasCheck: state.checkScannedReducer.data,
+    }
+
+}
+function dispatchToProps(dispatch) {
+    return bindActionCreators({
+        checkScannedAction
+    }, dispatch)
+}
+export default connect(mapStateToProps, dispatchToProps,null,{ forwardRef: true })(CheckModal);
 

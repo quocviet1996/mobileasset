@@ -47,7 +47,7 @@ export default class A extends Component {
         >
         </FlatList>
         <QRCode
-          value={this.props.asset}
+          value={this.props.navigation.state.params}
           //Setting the value of QRCode
           size={250}
           //Size of QRCode

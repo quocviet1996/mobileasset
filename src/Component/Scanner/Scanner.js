@@ -246,10 +246,10 @@ class Scanner extends Component {
     });
   }
   ScanQR(barcodes) {
+    // console.log(JSON.parse(barcodes[0].dataRaw))
+    const asset = JSON.parse(barcodes[0].dataRaw);
     this.setState({ isScanned: false });
-
-    // if (barcodes.length > 0) {
-    this.props.checkAssetAction({ serialNumber: barcodes[0].dataRaw, userId: this.props.user[0].id })
+    this.props.checkAssetAction({ serialNumber: asset.serialnumber, userId: this.props.user[0].id })
       .then((value) => {
         if (this.props.asset.length > 0) {
           this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
@@ -261,17 +261,16 @@ class Scanner extends Component {
           this.props.navigation.navigate("AcceptModal", barcodes[0].dataRaw)
         }
       })
-    // }
   }
   render() {
     const { focusedScreen } = this.state;
-    if (focusedScreen){
+    if (focusedScreen) {
       return (
         <View style={styles.container}>
           <CheckModal
             ref={"checkmodal"}
             isDisplayCheckModal={this.state.isDisplayCheckModal}
-  
+
           >
           </CheckModal>
           <RNCamera
@@ -305,15 +304,15 @@ class Scanner extends Component {
           >
             <BarcodeMask showAnimatedLine={false} width={300} height={200} edgeBorderWidth={1} />
           </RNCamera>
-  
+
         </View>
       );
     }
-    else{
+    else {
       return (<View></View>);
     }
 
-    
+
   }
 
   takePicture = async () => {

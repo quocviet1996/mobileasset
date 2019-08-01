@@ -3,7 +3,7 @@ import {
     CHECK_ASSET_EXISTS_SUCCESS,
     CHECK_ASSET_EXISTS_FAILURED
 } from './actionTypes';
-import { checkAssetWithSerialNumber } from '../User/api';
+import { checkAssetWithSerialNumber } from '../../services/api';
 const checkAsset = () => {
     return {
         type: CHECK_ASSET_EXISTS

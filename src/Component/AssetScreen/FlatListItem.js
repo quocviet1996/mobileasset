@@ -12,7 +12,8 @@ import moment from 'moment';
 
 export default class FlatListItem extends PureComponent {
     GenerateCode(){
-        this.props.parent.props.navigation.navigate("A",this.props.item)
+        // console.log(JSON.stringify(this.props.item.serialnumber))
+        this.props.parent.props.navigation.navigate("A",JSON.stringify(this.props.item))
     }
     render() {
         const { item } = this.props;
