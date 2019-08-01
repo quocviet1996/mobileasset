@@ -5,16 +5,23 @@ const { width } = Dimensions.get('window');
 export default StyleSheet.create({
     wrapper: { flex: 1 },
     header: {
+        // flexDirection:"row",
         flex: 0.1,
+        // height:60,
         backgroundColor: '#2ABB9C',
-        alignItems: 'center',
+        // padding:5,
+        // alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 10
-    },// eslint-disable-line
+        // paddingHorizontal: 10
+    },// eslint-disable-lines
     headerTitle: {
+        // backgroundColor:"red",
         fontFamily: 'Avenir',
         color: '#fff',
-        fontSize: 20
+        fontWeight:"bold",
+        fontSize: 20,
+        opacity:0.3,
+        paddingLeft:10,
     },
     backIconStyle: {
         width: 30,

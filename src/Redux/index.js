@@ -13,8 +13,8 @@ const persistConfig = {
     storage: AsyncStorage,
     whitelist: ['SignInReducer']
 };
-const reducers = persistReducer(rootPersistConfig, reducer)
-const persistedReducer = persistReducer(persistConfig, reducers)
-export default configureStore = createStore(persistedReducer, applyMiddleware(thunk));
+// const reducers = persistReducer(rootPersistConfig, reducer)
+// const persistedReducer = persistReducer(persistConfig, reducers)
+export default configureStore = createStore(reducer, applyMiddleware(thunk));
 // export default configureStore = createStore(reducer, applyMiddleware(thunk));
 

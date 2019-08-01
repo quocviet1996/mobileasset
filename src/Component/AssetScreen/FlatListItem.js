@@ -37,8 +37,8 @@ export default class FlatListItem extends PureComponent {
                         <Text style={styles.textvalue}>{moment(item.createdAt).format("DD-MM-YYYY : h:mm:ss a")}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={styles.textName}>Quantity:</Text>
-                        <Text style={{ ...this.state, color: '#C21C70' }}>{item.quantity}</Text>
+                        <Text style={styles.textName}>hasCheck:</Text>
+                        <Text style={{ ...this.state, color: '#C21C70' }}>{item.isScanned? "yes":"no"}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

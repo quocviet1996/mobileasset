@@ -15,7 +15,10 @@ import styles from './Styles';
 import { connect } from 'react-redux';
 import backgroundImage from 'images/splash_screen.jpg';
 import logo from 'images/logoFWD.png';
-import logoReact from 'images/reactjs.png'
+import logoReact from 'images/reactjs.png';
+import { getAccountUser } from '../../Storage/storage';
+import { signInAction } from '../../Redux/action';
+import { bindActionCreators } from 'redux';
 class Splash extends Component {
     constructor(props) {
         super(props);
@@ -33,13 +36,29 @@ class Splash extends Component {
             easing: Easing.back()
         }).start();
         setTimeout(() => {
-            if (this.props.user) {
-                return this.props.navigation.navigate("ListAsset")
-            }
-            else {
-                return this.props.navigation.navigate("Login")
-            }
-        }, 2000)
+            getAccountUser().then((result) => {
+                // console.log(JSON.parse(result))
+                const user = JSON.parse(result);
+                // console.log(result)
+                if (user != null) {
+                    this.props.signInAction({ username: user.username, password: user.password })
+                        .then(() => {
+                            // console.log(this.props.user)
+                    return this.props.navigation.navigate("ListAsset")
+
+
+                    //     })
+                })}
+                return this.props.navigation.navigate("Login");
+            })
+            // // var account = JSON.parse(await getAccountUser());
+            // if (this.props.user) {
+            //     return this.props.navigation.navigate("ListAsset")
+            // }
+            // else {
+            //     return this.props.navigation.navigate("Login")
+            // }
+        }, 1000)
     }
     spin() {
         this.state.spinValue
@@ -56,7 +75,7 @@ class Splash extends Component {
         const spin = this.state.spinValue.interpolate({
             inputRange: [0, 1],
             outputRange: ['0deg', '360deg']
-          })
+        })
         const truckStyle = {
             transform: [{ scale: this.state.animatedValue }],
         };
@@ -79,4 +98,10 @@ function mapStateToProps(state) {
         user: state.SignInReducer.User
     }
 }
-export default connect(mapStateToProps)(Splash);
+function dispatchToProps(dispatch) {
+    return bindActionCreators({
+        signInAction
+
+    }, dispatch)
+}
+export default connect(mapStateToProps, dispatchToProps)(Splash);

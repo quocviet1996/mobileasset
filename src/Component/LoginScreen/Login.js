@@ -16,7 +16,8 @@ import styles from './Styles';
 import { signInAction } from '../../Redux/action';
 import { connect } from 'react-redux';
 import { Header } from 'native-base';
-import backgroundImage from 'images/Login_eCheck.jpg'
+import backgroundImage from 'images/Login_eCheck.jpg';
+import {setAccountUser} from '../../Storage/storage';
 
 class Login extends Component {
     constructor(props) {
@@ -26,12 +27,19 @@ class Login extends Component {
             username: "",
         }
     }
+    componentDidMount() {
+        // console.log(this.props.User);
+    }
     onSignIn() {
         if (this.state.username != "" && this.state.password != "") {
             this.props.signInAction({ username: this.state.username, password: this.state.password })
                 .then(() => {
                     if (this.props.User) {
-                        this.props.navigation.navigate("ListAsset")
+                        setAccountUser(JSON.stringify(this.props.User[0]))
+                        .then(() =>{
+                            this.props.navigation.navigate("ListAsset")
+                        })
+                        
                     }
                     else {
                         Alert.alert(
@@ -58,7 +66,7 @@ class Login extends Component {
                     <Image style={{ tintColor: "black", resizeMode: "stretch", flex: 1 }} source={require("../../img/ic_launcher.png")}>
                     </Image>
                 </View> */}
-                <View style={{flex:1}}/>
+                <View style={{ flex: 1 }} />
                 <View style={styles.TextInputContainer}>
                     <View style={styles.TextInput}>
                         <Icon type="FontAwesome" name="user" style={{

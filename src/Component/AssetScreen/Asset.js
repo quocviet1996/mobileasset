@@ -6,11 +6,15 @@ import {
     Alert
 } from 'react-native';
 import { connect } from 'react-redux';
-import { assetAction, assetPull } from '../../Redux/action';
+import { assetAction, assetPull, signOutAction } from '../../Redux/action';
 import FlatListItem from './FlatListItem';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import styles from './Styles';
+import { Icon } from 'native-base';
+import LinearGradient from 'react-native-linear-gradient';
+import { LinearTextGradient } from "react-native-text-gradient";
+
 const { width } = Dimensions.get('window');
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
@@ -37,7 +41,7 @@ class Asset extends Component {
         // this.setState({ loading: true });
         this.props.assetAction({ userId: this.props.user[0].id, pageIndex: this.state.pageIndex, pageSize: this.state.pageSize })
             .then(() => {
-                this.setState({ asset: this.props.asset})
+                this.setState({ asset: this.props.asset })
             })
     }
 
@@ -49,7 +53,7 @@ class Asset extends Component {
             this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
                 .then(() => {
                     if (this.props.asset.length > 0) {
-                        this.setState({ asset:this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1, loading: false })
+                        this.setState({ asset: this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1, loading: false })
                     }
                     else {
                         this.setState({ loading: false });
@@ -64,9 +68,9 @@ class Asset extends Component {
         this.setState({ refresh: true })
         try {
             const page = 1;
-            this.setState({pageIndex:1 })
+            this.setState({ pageIndex: 1 })
             this.props.assetPull({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
-                .then(() => this.setState({ asset: this.props.asset, pageIndex: this.state.pageIndex + 1,refresh:false }))
+                .then(() => this.setState({ asset: this.props.asset, pageIndex: this.state.pageIndex + 1, refresh: false }))
         }
         catch{
             this.setState({ refresh: false })
@@ -108,6 +112,14 @@ class Asset extends Component {
             />
         }
     }
+    onSignOut() {
+        // console.log("a")
+        this.props.signOutAction()
+        this.props.navigation.navigate("Login");
+        // this.props
+            // .then(() => console.log(this.props.user))
+
+    }
     renderSeparator = () => {
         return (
             <View
@@ -122,13 +134,28 @@ class Asset extends Component {
     render() {
         return (
             <View style={styles.wrapper}>
-                <View style={styles.header}>
-                    {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("Login")}>
-                        <Icon type="FontAwesome" name="arrow-left" style={{ fontSize: 20, color: "black" }}></Icon>
-                    </TouchableOpacity> */}
-                    <Text style={styles.headerTitle}>{"Tài Sản Của " + toTitleCase(this.props.user[0].name)}</Text>
-                    <View />
-                </View>
+                <LinearGradient
+                    start={{ x: 0.0, y: 0.25 }}
+                    end={{ x: 0.5, y: 1.0 }}
+                    locations={[0, 0.5, 0.6]}
+                    colors={['#4c669f', '#3b5998', '#192f6a']}
+                    style={styles.header}>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: "center", padding: 10 }}>
+                        <View></View>
+                        <Text style={styles.headerTitle}>{"Tài Sản Của " + toTitleCase(this.props.user[0].name)}</Text>
+                        <TouchableOpacity onPress={() => this.onSignOut()}>
+                            <Icon type="FontAwesome" name="sign-out" style={{ color: "red", fontSize: 25, }}> </Icon>
+                        </TouchableOpacity>
+                    </View>
+                </LinearGradient>
+
+                {/* <View style={styles.header}>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: "center", padding: 10 }}>
+                        <View></View>
+                        <Text style={styles.headerTitle}>{"Tài Sản Của " + toTitleCase(this.props.user[0].name)}</Text>
+                        <Icon type="FontAwesome" name="sign-out" style={{ color: "red", fontSize: 25, }}> </Icon>
+                    </View>
+                </View> */}
                 <View style={styles.body}>
                     {this.onFlatList(this.state.asset)}
                     {/* {this.props.asset.length > 0 ?
@@ -170,7 +197,8 @@ function mapStateToProps(state) {
 function dispatchToProps(dispatch) {
     return bindActionCreators({
         assetAction,
-        assetPull
+        assetPull,
+        signOutAction
     }, dispatch);
 }
 

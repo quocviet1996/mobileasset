@@ -51,5 +51,5 @@ export function AssetPull(data) {
     catch (error) {
         console.log(error)
     }
-
 }
+

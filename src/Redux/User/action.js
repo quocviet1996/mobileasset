@@ -1,7 +1,8 @@
 import {
     SIGN_IN_REQUEST,
     SIGN_IN_SUCCESS,
-    SIGN_IN_FAILURE
+    SIGN_IN_FAILURE,
+    SIGN_OUT
 } from './actionTypes';
 // import {api} from '../../Saga/api';
 // import api from '../../services';
@@ -24,6 +25,17 @@ const signInFailure = () => {
     return {
         type: SIGN_IN_FAILURE,
 
+    }
+}
+ const signOutRequest = () =>{
+    return {
+        type:SIGN_OUT
+    }
+}
+export const signOutAction = () =>{
+    return (dispatch) =>{
+        // dispatch(signInRequest());
+        return dispatch(signOutRequest)
     }
 }
 const signInAction = (UserInfo) => {
