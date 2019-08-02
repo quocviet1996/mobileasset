@@ -21,6 +21,7 @@ import CheckModal from '../Modal/CheckModal/CheckModal';
 import { checkScannedAction, changeScanned, addAssetAction, checkAssetAction } from '../../Redux/action';
 import { changeScannedAsset } from '../../services/api';
 import styles from './Styles';
+import ExistsModal from '../Modal/hasExistsModal/ExistsModal';
 
 class Scanner extends Component {
   constructor(props) {
@@ -61,15 +62,16 @@ class Scanner extends Component {
                     this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
                     setTimeout(() => {
                       this.setState({ isScanned: true })
-                    }, 4000)
+                    }, 5000)
                   })
 
               }
               else {
-                Alert.alert("tài sản đã được kiểm tra rồi")
+                this.refs.ExistsModal.showAddModal();
+                // Alert.alert("tài sản đã được kiểm tra rồi")
                 setTimeout(() => {
                   this.setState({ isScanned: true })
-                }, 4000)
+                }, 5000)
               }
             })
         }
@@ -81,7 +83,7 @@ class Scanner extends Component {
                 this.refs.checkmodal.showAddModal(this.props.addAsset)
                 setTimeout(() => {
                   this.setState({ isScanned: true })
-                }, 4000)
+                }, 5000)
               }
               else {
                 Alert.alert("Lỗi không thể thêm")
@@ -97,9 +99,11 @@ class Scanner extends Component {
         <View style={styles.container}>
           <CheckModal
             ref={"checkmodal"}
-            isDisplayCheckModal={this.state.isDisplayCheckModal}
-          >
-          </CheckModal>
+          // isDisplayCheckModal={this.state.isDisplayCheckModal}
+          />
+          <ExistsModal
+            ref={"ExistsModal"}
+          />
           <RNCamera
             ref={ref => {
               this.camera = ref;

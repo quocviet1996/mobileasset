@@ -34,7 +34,7 @@ class CheckModal extends Component {
             this.refs.modal.open();
             setTimeout(() => {
                 this.refs.modal.close();
-            }, 2000);
+            }, 3000);
         });
         // this.props.checkScannedAction({ id: asset.id })
         //     .then(() => {
