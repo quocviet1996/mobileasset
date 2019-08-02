@@ -53,10 +53,10 @@ class Scanner extends Component {
       .then((value) => {
         // console.log(this.props.asset)
         if (this.props.asset.length > 0) {
-          this.props.checkScannedAction({ id: asset.id })
+          this.props.checkScannedAction({ serialnumber: asset.serialnumber })
             .then(() => {
               if (!this.props.hasCheck[0].isScanned) {
-                this.props.changeScanned({ id: asset.id })
+                this.props.changeScanned({ serialnumber: asset.serialnumber })
                   .then(() => {
                     this.refs.checkmodal.showAddModal(this.props.asset[0], this.state.isScanned)
                     setTimeout(() => {
@@ -78,7 +78,7 @@ class Scanner extends Component {
             .then(() => {
               // console.log(this.props.addResult)
               if (this.props.addResult == "success") {
-                this.refs.checkmodal.showAddModal(this.props.asset)
+                this.refs.checkmodal.showAddModal(this.props.addAsset)
                 setTimeout(() => {
                   this.setState({ isScanned: true })
                 }, 4000)
@@ -145,7 +145,7 @@ function mapStateToProps(state) {
     hasCheck: state.checkScannedReducer.data,
     isScanned: state.checkScannedReducer.isScanned,
     addResult: state.addAssetReducer.result,
-    addAsset:state.addAssetReducer.asset
+    addAsset: state.addAssetReducer.asset
   }
 }
 function dispatchToProps(dispatch) {

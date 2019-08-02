@@ -48,7 +48,7 @@ const checkScannedAction = (data) => {
         dispatch(checkScannedRequest);
         return checkScannedAsset(data)
             .then((value) => {
-                console.log(value)
+                // console.log(value)
                 if (value.data.data) {
                     dispatch(checkScannedSuccess(value.data.data))
                 }

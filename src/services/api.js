@@ -63,7 +63,7 @@ export function AssetPull(data) {
 export function checkScannedAsset(data) {
     try {
         const response = axios.post(CHECK_SCANNED, {
-            id: data.id
+            serialnumber: data.serialnumber
         })
         return response;
     }
@@ -74,7 +74,7 @@ export function checkScannedAsset(data) {
 export function changeScannedAsset(data) {
     try {
         const resposne = axios.post(CHANGE_ISSCANNED, {
-            id: data.id
+            serialnumber: data.serialnumber
         })
         // console.log(resposne)
         return resposne;
