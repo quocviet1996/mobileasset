@@ -149,10 +149,10 @@ export default class Generate extends Component {
                         start={{ x: 0.0, y: 0.25 }}
                         end={{ x: 0.5, y: 1.0 }}
                         locations={[0, 0.5, 0.6]}
-                        colors={['#4c669f', '#3b5998', '#192f6a']}
+                        colors={["#E10000", "#E10000", "#8C0000"]}
                         style={styles.header}>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: "center", padding: 10 }}>
-                            <Text style={{ fontSize: 20, color: "#fff" }}>Generate QR Code</Text>
+                            <Text style={{ fontSize: 20, color: "#fff" }}>Snap For SreenShot</Text>
                         </View>
                     </LinearGradient>
                 </TouchableOpacity>

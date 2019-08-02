@@ -33,7 +33,8 @@ export default StyleSheet.create({
         shadowOpacity: 0.2,
         padding: 10,
         borderRadius: 2,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems:"center",
     },
     textName: {
         color: '#9A9A9A',
