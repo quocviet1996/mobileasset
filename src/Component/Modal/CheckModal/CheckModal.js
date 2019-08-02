@@ -68,7 +68,7 @@ class CheckModal extends Component {
     // }
 
     render() {
-        const { id, name, createdAt, updateAt, quantity,isScanned } = this.state.asset;
+        const { id, name, createdAt, updateAt,username,producer,isScanned } = this.state.asset;
         // const { id, name, createdAt, updateAt, quantity } = this.props.navigation.state.params;
 
         return (
@@ -92,8 +92,16 @@ class CheckModal extends Component {
                         <Text style={styles.textvalue}>ASS{id}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={styles.textName}>Name:</Text>
+                        <Text style={styles.textName}>NameAsset:</Text>
                         <Text style={styles.textvalue}>{name}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={styles.textName}>userName:</Text>
+                        <Text style={styles.textvalue}>{username}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={styles.textName}>Producer:</Text>
+                        <Text style={styles.textvalue}>{producer}</Text>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={styles.textName}>CreateAt:</Text>

@@ -5,7 +5,8 @@ import {
     CHECK_ASSET_SERIALNUMBER,
     ASSET_PULL_TO_REFRESH,
     CHECK_SCANNED,
-    CHANGE_ISSCANNED
+    CHANGE_ISSCANNED,
+    ADD_ASSET
 } from '../ultil/api';
 export function SignInRequest(UserInfo) {
     try {
@@ -72,11 +73,28 @@ export function checkScannedAsset(data) {
 }
 export function changeScannedAsset(data) {
     try {
-        const resposne = axios.post(CHANGE_ISSCANNED,{
-            id:data.id
+        const resposne = axios.post(CHANGE_ISSCANNED, {
+            id: data.id
         })
         // console.log(resposne)
         return resposne;
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+export function addAsset(data) {
+    try {
+        const response = axios.post(ADD_ASSET, {
+            name: data.name,
+            userId: data.userId,
+            serialnumber:data.serialnumber,
+            // username: data.username,
+            categoryId: data.categoryId,
+            // producer: data.producer,
+            // year: data.year,
+        })
+        return response;
     }
     catch (error) {
         console.log(error)

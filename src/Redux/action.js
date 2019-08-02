@@ -4,6 +4,7 @@ import checkAssetAction from './CheckAsset/action';
 import { assetPull } from './Asset/action';
 import { changeScanned } from './CheckScanned/action';
 import {signOutAction} from './User/action';
+import addAssetAction from './AddAsset/action';
 
 import checkScannedAction from './CheckScanned/action';
 export {
@@ -13,5 +14,6 @@ export {
     assetPull,
     checkScannedAction,
     changeScanned,
-    signOutAction
+    signOutAction,
+    addAssetAction
 }

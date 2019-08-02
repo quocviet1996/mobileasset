@@ -30,7 +30,7 @@ class Asset extends Component {
         super(props);
         this.state = {
             pageIndex: 1,
-            pageSize: 4,
+            pageSize: 5,
             asset: [],
             loading: false,
             refresh: false,
@@ -153,39 +153,8 @@ class Asset extends Component {
                         </TouchableOpacity>
                     </View>
                 </LinearGradient>
-
-                {/* <View style={styles.header}>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: "center", padding: 10 }}>
-                        <View></View>
-                        <Text style={styles.headerTitle}>{"Tài Sản Của " + toTitleCase(this.props.user[0].name)}</Text>
-                        <Icon type="FontAwesome" name="sign-out" style={{ color: "red", fontSize: 25, }}> </Icon>
-                    </View>
-                </View> */}
                 <View style={styles.body}>
                     {this.onFlatList(this.state.asset)}
-                    {/* {this.props.asset.length > 0 ?
-                        <FlatList
-                            data={asset}
-                            renderItem={({ item }) => { return <FlatListItem item={item} parent={this} /> }}
-                            keyExtractor={(item) => item.id.toString()}
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={this.state.refresh}
-                                // onRefresh={() => this.onRefresh()}
-                                // loadOnEndReached={() => this.loadOnEndReached()}
-                                />
-                            }
-                            // ListFooterComponent={() => this.rederFooter()}
-                            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-                            onEndReachedThreshold={0.01}
-                            onEndReached={this.handleLoadMore}
-                            ListFooterComponent={this.renderFooter}
-
-
-                        />:<View>
-
-                        </View>
-                    } */}
                 </View>
             </View>
         );

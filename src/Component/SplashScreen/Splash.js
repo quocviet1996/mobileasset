@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import backgroundImage from 'images/splash_screen.jpg';
 import logo from 'images/logoFWD.png';
 import logoReact from 'images/reactjs.png';
-import { getAccountUser } from '../../Storage/storage';
+import { getAccountUser, removeAccountUser } from '../../Storage/storage';
 import { signInAction } from '../../Redux/action';
 import { bindActionCreators } from 'redux';
 class Splash extends Component {
@@ -36,27 +36,21 @@ class Splash extends Component {
             easing: Easing.back()
         }).start();
         setTimeout(() => {
+            // removeAccountUser();
             getAccountUser().then((result) => {
-                // console.log(JSON.parse(result))
                 const user = JSON.parse(result);
-                // console.log(result)
                 if (user != null) {
                     this.props.signInAction({ username: user.username, password: user.password })
                         .then(() => {
-                            // console.log(this.props.user)
                             return this.props.navigation.navigate("ListAsset")
-
-
-                            //     })
                         })
                 }
                 else {
                     return this.props.navigation.navigate("Login");
 
-
                 }
             })
-            // // var account = JSON.parse(await getAccountUser());
+            // var account = JSON.parse(await getAccountUser());
             // if (this.props.user) {
             //     return this.props.navigation.navigate("ListAsset")
             // }
