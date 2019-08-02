@@ -48,19 +48,23 @@ class ExistsModal extends Component {
                 backdrop={true}
                 ref={"modal"}
                 backdropPressToClose={false}
-                style={{ justifyContent: 'center', height: 200, backgroundColor: '#fff', borderRadius: 30 }}
+                style={{ justifyContent: 'center', height: 180, backgroundColor: '#fff', borderRadius: 30 }}
             >
-                {/* <View style={styles.orderRow}> */}
-                    <LinearTextGradient
-                        style={{ fontWeight: "bold", fontSize: 72 }}
+                <View style={styles.orderRow}>
+                    {/* <LinearTextGradient
+                        style={{justifyContent:"center",alignItems:"center", fontWeight: "bold", fontSize: 18 }}
                         locations={[0, 1]}
                         colors={["red", "blue"]}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
+                    > */}
+                    <Text
+                        style={{color:"#da5708", justifyContent: "center", alignItems: "center", fontWeight: "bold", fontSize: 18 }}
                     >
-                        Tài sản Của bạn đã được kiểm tra rồi
-                    </LinearTextGradient>
-                {/* </View> */}
+                        Tài sản của bạn đã được kiểm tra rồi
+                    </Text>
+                    {/* </LinearTextGradient> */}
+                </View>
                 <View style={{ flex: 1, justifyContent: "flex-end", alignItems: "center" }}>
                     {/* <Text style={{ fontSize: 15, fontWeight: "bold" }}>your asset have been check</Text> */}
                     <TouchableOpacity onPress={() => this.onPress()}>
