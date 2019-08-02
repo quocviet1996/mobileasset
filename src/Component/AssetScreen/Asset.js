@@ -108,8 +108,6 @@ class Asset extends Component {
                 onEndReachedThreshold={0.01}
                 onEndReached={this.handleLoadMore}
                 ListFooterComponent={this.renderFooter}
-
-
             />
         }
     }

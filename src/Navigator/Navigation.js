@@ -9,6 +9,7 @@ import AddAssetModal from '../Component/Modal/AddAssetModal';
 import AddAsset from '../Component/AddAssetScreen';
 import Scanner from '../Component/Scanner';
 import A from '../A';
+import Generate from '../Component/GenerateScreen';
 import {
     View,
     Text,
@@ -48,6 +49,7 @@ const bottom = createBottomTabNavigator({
                 </Icon>
         },
     },
+  
     Scanner: {
         screen: Scannera,
         navigationOptions: {
@@ -88,8 +90,8 @@ const stack1 = createStackNavigator({
     AddAsset: {
         screen: AddAsset
     },
-    A: {
-        screen: A
+    Generate: {
+        screen: Generate
     },
 },
     {
