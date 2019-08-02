@@ -5132,6 +5132,13 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-barcode-mask@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-barcode-mask/-/react-native-barcode-mask-1.0.5.tgz#b6a4faa2133477243f622c68a59af294fe341056"
+  integrity sha512-COXvJyCYK2lDmbgH9gJSZ/OCe0Pz1Faja9nY56InB7zGqqpGJATPHq84aXsK+T03iUqXmTxS6QcI32Ep6biOPQ==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-camera-kit@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/react-native-camera-kit/-/react-native-camera-kit-8.0.1.tgz#8b7b25d88c7e944d0a12857ddca5c889cb8c99fe"
@@ -5183,6 +5190,11 @@ react-native-keyboard-aware-scroll-view@0.8.0:
     prop-types "^15.6.2"
     react-native-iphone-x-helper "^1.0.3"
 
+react-native-linear-gradient@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
+  integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
+
 react-native-modalbox@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.7.1.tgz#cdb623ecd1cbe8699a450217c25b2d6666dc63e6"
@@ -5227,12 +5239,22 @@ react-native-safe-area-view@^0.14.1:
   dependencies:
     debounce "^1.2.0"
 
+react-native-swipe-list-view@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-list-view/-/react-native-swipe-list-view-2.0.0.tgz#031db12a52d3441715ff1d1e127a8aaee95c21aa"
+  integrity sha512-Lyoau882tcyWeZ/+8GOM0vi1obLbvHcVEM980D9/Qh9lQ/f2wJhbKM4pTXVBmJoWc+IDn31TRAenWzpGahEK8A==
+
 react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-1.4.1.tgz#f113cd87485808f0c991abec937f70fa380478b9"
   integrity sha512-Bke8KkDcDhvB/z0AS7MnQKMD2p6Kwfc1rSKlMOvg9CC5CnClQ2QEnhPSbwegKDYhUkBI92iH/BYy7hNSm5kbUQ==
   dependencies:
     prop-types "^15.6.1"
+
+react-native-text-gradient@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/react-native-text-gradient/-/react-native-text-gradient-0.1.6.tgz#d0085e1c978b737425b33f19addfec2637acd424"
+  integrity sha512-wSGAsD2lPeAzk9R5oYYCOvdRzy0A7+ZnfPumM2YxjCKR3/UOAQGpvG6/RugbFCDsxQJHNhjZOlGpX85y3VbsEw==
 
 react-native-vector-icons@6.1.0:
   version "6.1.0"
@@ -5251,6 +5273,11 @@ react-native-vector-icons@^6.6.0:
     lodash "^4.0.0"
     prop-types "^15.6.2"
     yargs "^13.2.2"
+
+react-native-view-shot@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-view-shot/-/react-native-view-shot-3.0.1.tgz#192b94e9f7f8319ff5f64e0fca98590dc084fadf"
+  integrity sha512-8aW2grPAsOpSauSybb6DpGL3TdK0C/E5NsLV12byHVNV9UjEX6a8ENjYS0Y+95do7eN5WX6d0jdX2yQr29BlMA==
 
 react-native@0.59.9:
   version "0.59.9"

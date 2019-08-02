@@ -42,7 +42,8 @@ class Asset extends Component {
         // this.setState({ loading: true });
         this.props.assetAction({ userId: this.props.user[0].id, pageIndex: this.state.pageIndex, pageSize: this.state.pageSize })
             .then(() => {
-                this.setState({ asset: this.props.asset })
+                this.setState({ asset: [...this.state.asset, ...this.props.asset] , pageIndex: this.state.pageIndex + 1})
+                // , pageIndex: this.state.pageIndex + 1
             })
     }
 
@@ -50,16 +51,15 @@ class Asset extends Component {
 
         if (!this.onEndReachedCalledDuringMomentum && !this.state.loading) {
             this.setState({ loading: true })
-            const page = this.state.pageIndex + 1;
-            this.props.assetAction({ userId: this.props.user[0].id, pageIndex: page, pageSize: this.state.pageSize })
+            // const page = this.state.pageIndex + 1;
+            this.props.assetAction({ userId: this.props.user[0].id, pageIndex: this.state.pageIndex , pageSize: this.state.pageSize })
                 .then(() => {
                     if (this.props.asset.length > 0) {
-                        this.setState({ asset: this.state.asset.concat(this.props.asset), pageIndex: this.state.pageIndex + 1, loading: false })
+                        this.setState({ asset: [...this.state.asset, ...this.props.asset], pageIndex: this.state.pageIndex + 1, loading: false })
                     }
                     else {
                         this.setState({ loading: false });
                         return Alert.alert("Không còn tài sản");
-
                     }
                 })
             this.onEndReachedCalledDuringMomentum = true;
@@ -105,7 +105,7 @@ class Asset extends Component {
                     />
                 }
                 onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
-                onEndReachedThreshold={0.01}
+                onEndReachedThreshold={0.2}
                 onEndReached={this.handleLoadMore}
                 ListFooterComponent={this.renderFooter}
             />

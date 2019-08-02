@@ -111,7 +111,9 @@ import QRCode from 'react-native-qrcode';
 import styles from './Styles';
 import { Icon } from 'native-base';
 import LinearGradient from 'react-native-linear-gradient';
-import backgroundImage from 'images/Scan_background.jpg'
+import backgroundImage from 'images/Scan_background.jpg';
+import { captureScreen } from "react-native-view-shot";
+
 
 //import QRCode
 
@@ -121,10 +123,31 @@ export default class Generate extends Component {
         this.state = {
             inputValue: '',
             asset: [],
+            imageURI: "",
             // Default Value of the TextInput
             valueForQRCode: '',
             // Default value for the QR Code
         };
+    }
+    ScreenFunction = () => {
+        console.log(this.state.imageURI)
+        CameraRoll.saveToCameraRoll(this.state.imageURI, 'photo')
+    }
+
+    captureScreenFunction = () => {
+        captureScreen({
+            format: "jpg",
+            quality: 0.8
+        })
+            .then(
+                uri => this.setState({ imageURI: uri }),
+                error => console.error("Oops, Something Went Wrong", error)
+            );
+
+    }
+    ScreenFunction = () => {
+        console.log(this.state.imageURI)
+        CameraRoll.saveToCameraRoll(this.state.imageURI, 'photo')
     }
 
     render() {
@@ -152,14 +175,24 @@ export default class Generate extends Component {
                         colors={["#E10000", "#E10000", "#8C0000"]}
                         style={styles.header}>
                         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: "center", padding: 10 }}>
-                            <Text style={{ fontSize: 20, color: "#fff" }}>Snap For SreenShot</Text>
+                            <TouchableOpacity onPress={this.captureScreenFunction}>
+                                <Text style={{ fontSize: 20, color: "#fff" }}>Snap For ScreenShot</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.ScreenFunction}>
+                                <Text style={{ fontSize: 20, color: "#fff" }}>Save</Text>
+                            </TouchableOpacity>
                         </View>
                     </LinearGradient>
                 </TouchableOpacity>
             </ImageBackground>
+
         );
     }
 }
+
+
+// alternative
+
 
 
 
